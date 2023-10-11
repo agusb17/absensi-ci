@@ -20,7 +20,7 @@
             justify-content: center;
             align-items: center;
             min-height: 100vh;
-            background: seagreen;
+            background: lightgreen;
             background-size: cover;
             background-position: center;
         }
@@ -103,7 +103,7 @@
         }
 
         .register-link p a:hover {
-            text-decoration: white;
+            text-decoration: ;
         }
     </style>
 </head>
@@ -115,32 +115,31 @@
             <h1>Register</h1>
             <div class="input-box">
                 <label for="">username</label>
-                <input type="text" placeholder="username" required>
+                <input type="text" placeholder="username" name="username" required>
             </div>
             <div class="input-box">
                 <label for="">email</label>
-                <input type="email" placeholder="email" required>
+                <input type="email" placeholder="email" name="email" required>
             </div>
             <div class="input-box">
                 <label for="">password</label>
-                <input type="password" placeholder="password" required>
+                <input type="password" placeholder="password" name="password" required>
             </div>
             <div class="input-box">
                 <label for="">nama depan</label>
-                <input type="nama_depan" placeholder="nama depan" required>
+                <input type="nama_depan" placeholder="nama depan" name="nama depan" required>
             </div>
             <div class="input-box">
                 <label for="">nama belakang</label>
-                <input type="nama_belakang" placeholder="nama belakang" required>
-            </div>
-            <div class="input-box">
-                <label for="">role</label>
-                <input type="role" placeholder="role" required>
-            </div>
-
+                <input type="nama_belakang" placeholder="nama belakang" name="nama belakang"required>
+          </div>
             <button type="submit" class="btn">login</button>
             <div class="register_link">
-                <p>sudah punya akun?<a href="auth/login" style=color:white> login</a></p>
+                <p>sudah punya akun?<a href='login'style=color:white> login</a></p>
+            </div>
+
+            <div class="register_link">
+                <p>sudah punya akun?<a href='register_admin' style=color:white> register admin</a></p>
             </div>
 
 

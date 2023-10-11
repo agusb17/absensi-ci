@@ -103,7 +103,7 @@
         }
 
         .register-link p a:hover {
-            text-decoration: white;
+            text-decoration: ;
         }
     </style>
 </head>
@@ -111,20 +111,35 @@
 <body>
 
     <div class="wrapper">
-        <form method="post" action="<?php echo base_url('Auth/aksi_login'); ?>">
-            <h1>login</h1>
+        <form action="">
+            <h1>Register admin</h1>
             <div class="input-box">
                 <label for="">username</label>
                 <input type="text" placeholder="username" name="username" required>
             </div>
             <div class="input-box">
-                <label for="">password</label>
-                <input type="password" placeholder="password"  name="password"required>
+                <label for="">email</label>
+                <input type="email" placeholder="email" name="email" required>
             </div>
-
+            <div class="input-box">
+                <label for="">password</label>
+                <input type="password" placeholder="password" name="password" required>
+            </div>
+            <div class="input-box">
+                <label for="">nama depan</label>
+                <input type="nama_depan" placeholder="nama depan" name="nama depan" required>
+            </div>
+            <div class="input-box">
+                <label for="">nama belakang</label>
+                <input type="nama_belakang" placeholder="nama belakang" name="nama belakang"required>
+          </div>
             <button type="submit" class="btn">login</button>
             <div class="register_link">
-                <p>sudah punya akun?<a href="<?php echo base_url('auth/register'); ?>" style=color:white> register</a></p>
+                <p>sudah punya akun?<a href='login' style=color:white>login</a></p>
+            </div>
+
+            <div class="register_link">
+                <p>sudah punya akun?<a href='register' style=color:white> register</a></p>
             </div>
 
 
