@@ -20,14 +20,14 @@
             justify-content: center;
             align-items: center;
             min-height: 100vh;
-            background: lightgreen;
+            background: linear-gradient(to top left, #0000ff 0%, #ff33cc 100%);
             background-size: cover;
             background-position: center;
         }
 
         .wrapper {
             width: 420px;
-            background: purple;
+            background: linear-gradient(to top left, #0000ff 0%, #ff33cc 100%);
             color: #fff;
             border-radius: 10px;
             padding: 20px 40px;
