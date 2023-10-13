@@ -40,14 +40,38 @@ class Employee extends CI_Controller
         ];
 
         $this->load->model('Absensi_model');
-        $this->Absensi_model->createAbsensi($data);
+        $this->absensi_model->createAbsensi($data);
 
         redirect('employee/history');
     }
 
-    public function ubah_absensi()
+   
+    public function ubah_absensi($id)
     {
-        $this->load->view('employee/tambah_ubah_absensi');
+        // Ambil data absensi berdasarkan ID atau cara lain sesuai dengan logika aplikasi Anda
+        $data['absen'] = $this->user_model->updateAbsensi($id); // Gantilah dengan logika yang sesuai
+
+        // Muat tampilan dan teruskan variabel $data
+        $this->load->view('employee/ubah_absensi', $data);
+    }
+
+    public function aksi_ubah_absensi()
+    {
+        $id_karyawan = $this->session->userdata('id');
+  $data = [
+   'kegiatan' => $this->input->post('kegiatan'),
+  ];
+  $eksekusi=$this->user_model->update_data
+        ('absensi', $data, array('id'=>$this->input->post('id')));
+        if($eksekusi)
+        {
+            $this->session->set_flashdata('berhasil_update', 'Berhasil mengubah kegiatan');
+            redirect(base_url('employee/history'));
+        }
+        else
+        {
+            redirect(base_url('employee/ubah_absensi/'.$this->input->post('id')));
+        }
     }
 
     

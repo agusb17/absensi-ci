@@ -81,5 +81,16 @@ class user_model extends CI_Model
         $this->db->where('id', $user_id);
         $this->db->update('User', $data);
     }
+
+    public function ubah_absensi($table, $data, $where)
+    {
+        $data = $this->db->absensi($table, $data, $where);
+        return $this->db->affected_rows();
+    }
+
+    public function update_data($table, $data, $where) {
+        $this->db->update($table, $data, $where);
+        return $this->db->affected_rows();
+    }
 }
 ?>

@@ -14,20 +14,18 @@
     margin-right: 10px;
     margin-top: 100px;
 }
- body {
-    background: linear-gradient(to top left, #99ffcc 0%, #99ffcc 100%);
- }
 </style>
 
 <body>
     <?php $this->load->view('./component/sidebar_karyawan'); ?>
     <div class="kegiatan mb-3">
-        <form method="post" action="<?= base_url('employee/simpan_izin') ?>">
-            <h3>izin</h3>
+        <form method="post" action="<?= base_url('employee/aksi_ubah_absensi') ?>">
+            <h3>Ubah</h3>
             <br>
-            <label for="Kegiatan" class="form-label">Kegiatan :</label>
-            <textarea class="form-control" aria-label="With textarea" name="kegiatan"></textarea>
-            <button type="submit" class="btn btn-warning mt-4">izin</button>
+            <label for="Kegiatan" class="m-label">Kegiatan :</label>
+            <textarea class="form-control" aria-label="With textarea" name="kegiatan">
+            </textarea>>
+            <button type="submit" class="btn btn-warning mt-4">Ubah</button>
         </form>
     </div>
 </body>

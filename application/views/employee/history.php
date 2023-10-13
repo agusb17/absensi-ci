@@ -60,11 +60,11 @@
                         <i class="fa-solid fa-house"></i>
                     </a>
                 </td>
-                <td><a href="<?php echo base_url('employee/update_absen/') .
+                <td><a href="<?php echo base_url('employee/ubah_absensi/') .
                         $row['id']; ?>" type="button" class="btn btn-primary">
                         <i class="fa-solid fa-pen-to-square"></i>
                     </a> |
-                    <button type="button" class="btn btn-"><i class="fa-solid fa-trash"></i></button>
+                    <button type="button" class="btn btn-primary"><i class="fa-solid fa-trash"></i></button>
             </tr>
             <?php $i++; ?>
             <?php endforeach; ?>
