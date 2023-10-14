@@ -23,8 +23,9 @@
             <h3>Ubah</h3>
             <br>
             <label for="Kegiatan" class="m-label">Kegiatan :</label>
-            <textarea class="form-control" aria-label="With textarea" name="kegiatan">
-            </textarea>>
+            <textarea class="form-control" aria-label="With textarea"
+                name="kegiatan"><?= $absen['kegiatan'] ?></textarea>
+            <input type="hidden" name="id" value="<?= $absen['id'] ?>">
             <button type="submit" class="btn btn-warning mt-4">Ubah</button>
         </form>
     </div>

@@ -14,9 +14,10 @@
     margin-right: 10px;
     margin-top: 100px;
 }
- body {
+
+body {
     background: linear-gradient(to top left, #99ffcc 0%, #99ffcc 100%);
- }
+}
 </style>
 
 <body>

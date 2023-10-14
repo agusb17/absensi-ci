@@ -1,7 +1,14 @@
 <?php
 
-class Absensi_model extends CI_Model
+class absensi_model extends CI_Model
 {
+    public function __construct()
+    {
+        parent::__construct();
+        $this->load->database();
+        $this->load->library('session');
+    }
+
     public function createAbsensi($data)
     {
         // Menambahkan data absensi baru ke database

@@ -7,7 +7,7 @@ class Employee extends CI_Controller
     {
         parent::__construct();
         // Load model dan library yang diperlukan
-        $this->load->model('user_model');
+        $this->load->model('absensi_model');
         $this->load->library('form_validation');
 
     }
@@ -40,16 +40,15 @@ class Employee extends CI_Controller
         ];
 
         $this->load->model('Absensi_model');
-        $this->absensi_model->createAbsensi($data);
+        $this-> Absensi_model->createAbsensi($data);
 
         redirect('employee/history');
     }
 
-   
     public function ubah_absensi($id)
     {
-        // Ambil data absensi berdasarkan ID atau cara lain sesuai dengan logika aplikasi Anda
-        $data['absen'] = $this->user_model->updateAbsensi($id); // Gantilah dengan logika yang sesuai
+        // Ambil data absensi berdasarkan ID
+        $data['absen'] = $this->absensi_model->getAbsensiById($id);
 
         // Muat tampilan dan teruskan variabel $data
         $this->load->view('employee/ubah_absensi', $data);
@@ -58,22 +57,19 @@ class Employee extends CI_Controller
     public function aksi_ubah_absensi()
     {
         $id_karyawan = $this->session->userdata('id');
-  $data = [
-   'kegiatan' => $this->input->post('kegiatan'),
-  ];
-  $eksekusi=$this->user_model->update_data
-        ('absensi', $data, array('id'=>$this->input->post('id')));
-        if($eksekusi)
-        {
+        $data = [
+            'kegiatan' => $this->input->post('kegiatan'),
+        ];
+
+        $eksekusi = $this->absensi_model->update_data('absensi', $data, array('id' => $this->input->post('id')));
+
+        if ($eksekusi) {
             $this->session->set_flashdata('berhasil_update', 'Berhasil mengubah kegiatan');
             redirect(base_url('employee/history'));
-        }
-        else
-        {
+        } else {
             redirect(base_url('employee/ubah_absensi/'.$this->input->post('id')));
         }
     }
-
     
     public function izin()
     {
@@ -81,26 +77,25 @@ class Employee extends CI_Controller
     }
 
     public function simpan_izin()
-{
-    // Tangkap data yang dikirimkan melalui POST
-    $keterangan_izin = $this->input->post('kegiatan');
+    {
+        // Tangkap data yang dikirimkan melalui POST
+        $keterangan_izin = $this->input->post('kegiatan');
 
-    // Load model yang diperlukan untuk menyimpan data izin
-    $this->load->model('Izin_model');
+        // Load model yang diperlukan untuk menyimpan data izin
+        $this->load->model('Izin_model');
 
-    // Siapkan data izin yang akan disimpan
-    $data = [
-        'keterangan_izin' => $keterangan_izin,
-        // Kolom lainnya tidak perlu diisi atau dapat diisi dengan nilai default
-    ];
+        // Siapkan data izin yang akan disimpan
+        $data = [
+            'keterangan_izin' => $keterangan_izin,
+            // Kolom lainnya tidak perlu diisi atau dapat diisi dengan nilai default
+        ];
 
-    // Panggil model untuk menyimpan data izin
-    $this->Izin_model->simpanIzin($data);
+        // Panggil model untuk menyimpan data izin
+        $this->Izin_model->simpanIzin($data);
 
-    // Setelah selesai, Anda bisa mengarahkan pengguna kembali ke halaman "history"
-    redirect('employee/history');
-}
-
+        // Setelah selesai, Anda bisa mengarahkan pengguna kembali ke halaman "history"
+        redirect('employee/history');
+    }
 
     public function pulang($absen_id) {
         if ($this->session->userdata('role') === 'karyawan') {
@@ -125,12 +120,14 @@ class Employee extends CI_Controller
         $this->load->view('employee/history', $data);
     }
 
-    public function hapus($absen_id) {
-        if ($this->session->userdata('role') === 'karyawan') {
-            $this->karyawan_model->hapusAbsensi($absen_id);
-            redirect('karyawan/history_absen');
-        } else {
-            redirect('other_page');
-        }
+    public function hapus($id)
+    {
+        $this->m_model->delete('absensi', 'id', $id);
+        $this->session->set_flashdata(
+            'berhasil_menghapus',
+            'Data berhasil dihapus.'
+        );
+        redirect(base_url('employee/history'));
     }
+    
 }

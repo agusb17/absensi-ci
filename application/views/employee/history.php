@@ -55,11 +55,16 @@
                     <?php endif; ?>
                 </td>
                 <td>
-                    <a href="javascript:setHomeTime(<?php echo $i; ?>);"
-                        class="btn btn-warning <?php echo !empty($row['keterangan_izin']) ? 'disabled' : ''; ?>">
+
+                    <a href="javascript:setHomeTime(<?php echo $i; ?>);" class="btn btn-success <?php echo !empty(
+            $row['keterangan_izin']
+        )
+            ? 'disabled'
+            : ''; ?>">
                         <i class="fa-solid fa-house"></i>
                     </a>
                 </td>
+
                 <td><a href="<?php echo base_url('employee/ubah_absensi/') .
                         $row['id']; ?>" type="button" class="btn btn-primary">
                         <i class="fa-solid fa-pen-to-square"></i>
@@ -72,5 +77,120 @@
     </table>
 
 </body>
+<script>
+function setHomeTime(row) {
+    var jamPulangElement = document.getElementById('jam-pulang-' + row);
+    var pulangButton = document.getElementById('pulangBtn-' + row);
+
+    var currentTime = new Date();
+    var hours = currentTime.getHours();
+    var minutes = currentTime.getMinutes();
+    var seconds = currentTime.getSeconds();
+    var formattedTime = (hours < 10 ? "0" : "") + hours + ":" + (minutes < 10 ? "0" : "") + minutes + ":" + (
+        seconds < 10 ? "0" : "") + seconds;
+
+    jamPulangElement.textContent = formattedTime;
+
+    // Simpan waktu di localStorage
+    localStorage.setItem('jamPulang-' + row, formattedTime);
+
+}
+`
+    // Nonaktifkan tombol home setelah ditekan
+    var homeButton = document.querySelector('a[href="javascript:setHomeTime(' + row + ');"]');
+    homeButton.classList.add('disabled');
+
+    // Nonaktifkan tombol "Pulang" setelah tombol "Home" ditekan
+    pulangButton.classList.add('disabled');
+    pulangButton.onclick = null;
+}
+
+// Cek apakah waktu tersimpan di localStorage saat halaman dimuat
+window.addEventListener('load', function() {
+    var rows = document.querySelectorAll('[id^=jam-pulang-]');
+
+    rows.forEach(function(jamPulangElement) {
+        var row = jamPulangElement.getAttribute('id').replace('jam-pulang-', '');
+        var storedTime = localStorage.getItem('jamPulang-' + row);
+
+        if (storedTime) {
+            jamPulangElement.textContent = storedTime;
+
+            // Nonaktifkan tombol "Pulang" jika tombol "Home" sudah ditekan
+            var pulangButton = document.getElementById('pulangBtn-' + row);
+            pulangButton.classList.add('disabled');
+            pulangButton.onclick = null;
+
+            // Nonaktifkan tombol "Home" jika tombol "Home" sudah ditekan
+            var homeButton = document.querySelector('a[href="javascript:setHomeTime(' + row +
+                ');"]');
+            homeButton.classList.add('disabled');
+            homeButton.onclick = null;
+        }
+    });
+});
+</script>
+<script>
+function hapus(id) {
+    if (confirm('Yakin Di Hapus? Anda tidak dapat mengembalikannya!')) {
+        // Jika pengguna mengonfirmasi, maka akan menjalankan perintah hapus
+        window.location.href = "<?php echo base_url('employee/hapus/'); ?>" + id;
+    }
+}
+</script>
+<script>
+function pulang(id) {
+    var xhr = new XMLHttpRequest();
+    xhr.open('GET', '<?php echo base_url("employee/pulang/") ?>' + id, true);
+    xhr.onreadystatechange = function() {
+        if (xhr.readyState === 4 && xhr.status === 200) {
+            var response = JSON.parse(xhr.responseText);
+
+            if (response.status === 'true') {
+                // Tombol "Pulang" berubah menjadi "Batal Pulang"
+                var pulangButton = document.querySelector('a.btn[data-id="' + id + '"]');
+                pulangButton.textContent = 'Batal Pulang';
+                pulangButton.className = 'btn btn-danger';
+                pulangButton.setAttribute('onclick', 'batalPulang(' + id + ');');
+
+                // Update jam pulang dalam tabel
+                var jamPulangCell = document.getElementById('jam-pulang-' + id);
+                jamPulangCell.textContent = response.jam_pulang;
+            }
+        }
+    };
+    xhr.send();
+}
+
+function batalPulang(id) {
+    var xhr = new XMLHttpRequest();
+    xhr.open('GET', '<?php echo base_url("employee/batal_pulang/") ?>' + id, true);
+    xhr.onreadystatechange = function() {
+        if (xhr.readyState === 4 && xhr.status === 200) {
+            var response = JSON.parse(xhr.responseText);
+
+            if (response.status === 'false') {
+                // Tombol "Batal Pulang" berubah kembali menjadi "Pulang"
+                var batalPulangButton = document.querySelector('a.btn[data-id="' + id + '"]');
+                batalPulangButton.textContent = 'Pulang';
+                batalPulangButton.className = 'btn btn-warning';
+                batalPulangButton.setAttribute('onclick', 'pulang(' + id + ');');
+
+                // Hapus jam pulang dalam tabel
+                var jamPulangCell = document.getElementById('jam-pulang-' + id);
+                jamPulangCell.textContent = '';
+            }
+        }
+    };
+    xhr.send();
+}
+</script>
+
+
+<?php ?>
+
+
+
+
 
 </html>
