@@ -17,7 +17,7 @@ class m_model extends CI_Model
     }
     public function delete($tabel, $field, $id)
     {
-        $data = $this->db->delete($tabel, array($field => $id));
+        $data = $this->db->delete($tabel, [$field => $id]);
         return $data;
     }
     public function tambah_data($tabel, $data)
@@ -104,6 +104,8 @@ class m_model extends CI_Model
         $this->db->where('id', $id);
         $this->db->delete('User');
     }
+
+  
 
     public function updateUserFoto($user_id, $foto)
     {

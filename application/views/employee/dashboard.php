@@ -13,48 +13,48 @@
 </head>
 
 <style>
+.card {
+    background-color: #f9f9f9;
+    margin-top: 100px;
+}
+
+.table {
+    width: 90%;
+    margin-left: 190px;
+}
+
+.row {
+    margin-left: 250px;
+}
+
+.icon {
+    margin-top: 20px;
+    float: right;
+}
+
+@media (max-width: 768px) {
     .card {
         background-color: #f9f9f9;
-        margin-top: 100px;
-    }
-
-    .table {
-        width: 90%;
-        margin-left: 190px;
+        margin-top: 70px;
     }
 
     .row {
-        margin-left: 250px;
+        margin-left: 0;
+        /* Menghapus margin kiri */
     }
 
     .icon {
-        margin-top: 20px;
-        float: right;
+        float: none;
+        /* Menghapus floating icon */
+        margin-top: 10px;
+        /* Menggeser icon ke atas */
     }
-
-    @media (max-width: 768px) {
-        .card {
-            background-color: #f9f9f9;
-            margin-top: 70px;
-        }
-
-        .row {
-            margin-left: 0;
-            /* Menghapus margin kiri */
-        }
-
-        .icon {
-            float: none;
-            /* Menghapus floating icon */
-            margin-top: 10px;
-            /* Menggeser icon ke atas */
-        }
-    }
+}
 </style>
 
 <body>
     <?php $this->load->view('./component/sidebar_karyawan'); ?>
-   
+
     <div class="container">
         <div class="row">
             <div class="col-md-4">
@@ -85,14 +85,14 @@
         <table class="table table-striped mt-5">
             <thead>
                 <tr>
-                    <th scope="col">No</th>
-                    <th scope="col">Kegiatan</th>
-                    <th scope="col">Tanggal</th>
-                    <th scope="col">Jam Masuk</th>
-                    <th scope="col">Jam Pulang</th>
-                    <th scope="col">Keterangan</th>
-                    <th scope="col">Pulang</th>
-                    <th scope="col text-center">Aksi</th>
+                    <th scope="col"></th>
+                    <th scope="col"></th>
+                    <th scope="col"></th>
+                    <th scope="col"></th>
+                    <th scope="col"></th>
+                    <th scope="col"></th>
+                    <th scope="col"></th>
+                    <th scope="col text-center"></th>
                 </tr>
             </thead>
             <tbody>

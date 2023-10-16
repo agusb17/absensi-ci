@@ -334,12 +334,9 @@ body.dark {
 
         <div class="navbar_content">
             <i class="bi bi-grid"></i>
-            <a href="<?php echo base_url('employee/profil'); ?>">
-                <img src="https://static.vecteezy.com/system/resources/thumbnails/002/318/271/small/user-profile-icon-free-vector.jpg"
-                    alt="" class="profile" />
-            </a>
+            <img src="https://static.vecteezy.com/system/resources/thumbnails/002/318/271/small/user-profile-icon-free-vector.jpg"
+                alt="" class="profile" />
         </div>
-
     </nav>
 
     <!-- sidebar -->
@@ -359,24 +356,24 @@ body.dark {
                     <ul class="menu_items submenu">
                         <a href="<?php echo base_url(
                             'employee/history'
-                        ); ?>" class="nav_link sublink">History</a>
+                        ); ?>" class="nav_link sublink">rekap mingguan</a>
                     </ul>
 
                     <ul class="menu_items submenu">
                         <a href="<?php echo base_url(
                             'employee/tambah_absen'
-                        ); ?>" class="nav_link sublink">Absensi</a>
+                        ); ?>" class="nav_link sublink">rekap bulanan</a>
                     </ul>
                     <ul class="menu_items submenu">
                         <a href="<?php echo base_url(
                             'employee/dashboard'
-                        ); ?>" class="nav_link sublink">Dashboard</a>
+                        ); ?>" class="nav_link sublink">rekap harian</a>
                     </ul>
 
                     <ul class="menu_items submenu">
                         <a href="<?php echo base_url(
                             'employee/izin'
-                        ); ?>" class="nav_link sublink">izin</a>
+                        ); ?>" class="nav_link sublink">karyawan</a>
                     </ul>
 
 

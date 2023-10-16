@@ -8,6 +8,7 @@ class Employee extends CI_Controller
         parent::__construct();
         // Load model dan library yang diperlukan
         $this->load->model('absensi_model');
+        $this->load->model('m_model');
         $this->load->library('form_validation');
 
     }
@@ -25,6 +26,18 @@ class Employee extends CI_Controller
     public function tambah_absen()
     {
         $this->load->view('employee/tambah_absen');
+    }
+ 
+    public function profil()
+    {
+        if ($this->session->userdata('id')) {
+            $user_id = $this->session->userdata('id');
+            $data['user'] = $this->User_model->getUserById($user_id);
+
+            $this->load->view('Employee/profil', $data);
+        } else {
+            redirect('auth/register');
+        }
     }
 
     public function save_absensi()
@@ -112,6 +125,75 @@ class Employee extends CI_Controller
             redirect('other_page');
         }
     }
+
+    public function aksi_ubah_akun()
+    {
+        $foto = $this->upload_image_karyawan('foto');
+        if ($foto[0] == false) {
+            $password_baru = $this->input->post('password_baru');
+            $konfirmasi_password = $this->input->post('konfirmasi_password');
+            $email = $this->input->post('email');
+            $username = $this->input->post('username');
+            $data = [
+                'foto' => 'User.png',
+                'email' => $email,
+                'username' => $username,
+            ];
+            if (!empty($password_baru)) {
+                if ($password_baru === $konfirmasi_password) {
+                    $data['password'] = md5($password_baru);
+                } else {
+                    $this->session->set_flashdata(
+                        'message',
+                        'Password baru dan Konfirmasi password harus sama'
+                    );
+                    redirect(base_url('employee/akun'));
+                }
+            }
+            $this->session->set_userdata($data);
+            $update_result = $this->m_model->update('user', $data, [
+                'id' => $this->session->userdata('id'),
+            ]);
+
+            if ($update_result) {
+                redirect(base_url('employee/akun'));
+            } else {
+                redirect(base_url('employee/akun'));
+            }
+        } else {
+            $password_baru = $this->input->post('password_baru');
+            $konfirmasi_password = $this->input->post('konfirmasi_password');
+            $email = $this->input->post('email');
+            $username = $this->input->post('username');
+            $data = [
+                'foto' => $foto[1],
+                'email' => $email,
+                'username' => $username,
+            ];
+            if (!empty($password_baru)) {
+                if ($password_baru === $konfirmasi_password) {
+                    $data['password'] = md5($password_baru);
+                } else {
+                    $this->session->set_flashdata(
+                        'message',
+                        'Password baru dan Konfirmasi password harus sama'
+                    );
+                    redirect(base_url('admin/akun'));
+                }
+            }
+            $this->session->set_userdata($data);
+            $update_result = $this->m_model->update('user', $data, [
+                'id' => $this->session->userdata('id'),
+            ]);
+
+            if ($update_result) {
+                redirect(base_url('employee/akun'));
+            } else {
+                redirect(base_url('employee/akun'));
+            }
+        }
+    }
+
 
     public function history()
     {

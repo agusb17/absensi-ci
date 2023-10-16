@@ -69,7 +69,16 @@
                         $row['id']; ?>" type="button" class="btn btn-primary">
                         <i class="fa-solid fa-pen-to-square"></i>
                     </a> |
-                    <button type="button" class="btn btn-primary"><i class="fa-solid fa-trash"></i></button>
+                    <button onClick="hapus(<?php echo $row['id']; ?>)" type="button" class="btn btn-danger">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+                            class="bi bi-trash" viewBox="0 0 16 16">
+                            <path
+                                d="M5.5 5.5A.5.5 0 0 1 6 6v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5Zm2.5 0a.5.5 0 0 1 .5.5v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5Zm3 .5a.5.5 0 0 0-1 0v6a.5.5 0 0 0 1 0V6Z" />
+                            <path
+                                d="M14.5 3a1 1 0 0 1-1 1H13v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V4h-.5a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1H6a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1h3.5a1 1 0 0 1 1 1v1ZM4.118 4 4 4.059V13a1 1 0 0 0 1 1h6a1 1 0 0 0 1-1V4.059L11.882 4H4.118ZM2.5 3h11V2h-11v1Z" />
+                        </svg>
+                    </button>
+
             </tr>
             <?php $i++; ?>
             <?php endforeach; ?>
@@ -94,8 +103,7 @@ function setHomeTime(row) {
     // Simpan waktu di localStorage
     localStorage.setItem('jamPulang-' + row, formattedTime);
 
-}
-`
+
     // Nonaktifkan tombol home setelah ditekan
     var homeButton = document.querySelector('a[href="javascript:setHomeTime(' + row + ');"]');
     homeButton.classList.add('disabled');
@@ -132,12 +140,13 @@ window.addEventListener('load', function() {
 </script>
 <script>
 function hapus(id) {
-    if (confirm('Yakin Di Hapus? Anda tidak dapat mengembalikannya!')) {
+    if (confirm('Yakin Di Hapus?')) {
         // Jika pengguna mengonfirmasi, maka akan menjalankan perintah hapus
         window.location.href = "<?php echo base_url('employee/hapus/'); ?>" + id;
     }
 }
 </script>
+
 <script>
 function pulang(id) {
     var xhr = new XMLHttpRequest();
