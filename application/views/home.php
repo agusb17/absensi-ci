@@ -15,7 +15,7 @@
         background-size: cover;
         background-repeat: no-repeat;
         background-attachment: fixed;
-        background: linear-gradient(to left, #669999 20%, #ff9966 100%);
+        background: linear-gradient(to bottom, #003366 29%, #ffffff 100%);
     }
 
     .card-title {
@@ -54,12 +54,13 @@
                 <div class="col-md-4">
                     <div class="">
                         <div class="container">
-                            <img src="" alt="Logo" class="mb-4 logo">
+                            <img src="https://img.freepik.com/premium-vector/welcome-beautiful-inscription-isolated_110464-295.jpg"
+                                alt="Logo" class="mb-4 logo">
                             <h2 class="card-title text-center text-dark fs-1"> SELAMAT DATANG </h2>
                             <hr class="text-light">
                             <div class="d-flex justify-content-center">
                                 <div class="text-center mx-1">
-                                    <a href="<?php echo base_url('auth/register'); ?>" type="submit"
+                                    <a href="<?php echo base_url('auth/register_karyawan'); ?>" type="submit"
                                         class="btn btn-success custom-button">Daftar Karyawan</a>
                                 </div>
                                 <div class="text-center mx-1">

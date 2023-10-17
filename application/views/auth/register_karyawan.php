@@ -53,12 +53,12 @@
 <body>
     <div class="min-vh-100 d-flex align-items-center">
         <div class="container">
-            <h1 class="text-center text-light">Register Admin</h1>
+            <h1 class="text-center text-light">Register Karyawan</h1>
             <div class="row justify-content-center">
                 <div class="col-md-4">
                     <div class="card">
                         <div class="card-body">
-                            <form class="row g-3" action="<?= base_url('Auth/process_register_admin'); ?>"
+                            <form class="row g-3" action="<?= base_url('Auth/process_register_karyawan'); ?>"
                                 method="post">
                                 <div class="col-md-6">
                                     <label for="inputName4" class="form-label">First Name</label>

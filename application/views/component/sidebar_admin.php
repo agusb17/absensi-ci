@@ -325,7 +325,7 @@ body.dark {
     <nav class="navbar">
         <div class="logo_item">
             <i class="bx bx-menu" id="sidebarOpen"></i>
-            KARYAWAN
+            Absensi Admin
         </div>
 
         <div class="search_bar">
@@ -355,24 +355,25 @@ body.dark {
 
                     <ul class="menu_items submenu">
                         <a href="<?php echo base_url(
-                            'employee/history'
+                            'Admin/rekapPerMinggu'
                         ); ?>" class="nav_link sublink">rekap mingguan</a>
                     </ul>
 
                     <ul class="menu_items submenu">
+
                         <a href="<?php echo base_url(
-                            'employee/tambah_absen'
+                            'Admin/rekapPerBulan'
                         ); ?>" class="nav_link sublink">rekap bulanan</a>
                     </ul>
                     <ul class="menu_items submenu">
                         <a href="<?php echo base_url(
-                            'employee/dashboard'
+                            'Admin/rekapPerHari'
                         ); ?>" class="nav_link sublink">rekap harian</a>
                     </ul>
 
                     <ul class="menu_items submenu">
                         <a href="<?php echo base_url(
-                            'employee/izin'
+                            'Admin/karyawan'
                         ); ?>" class="nav_link sublink">karyawan</a>
                     </ul>
 

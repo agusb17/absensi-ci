@@ -3,135 +3,104 @@
 
 <head>
     <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
-    <link rel="stylesheet" href="style.css">
+    <title>Login</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0/dist/css/bootstrap.min.css">
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css"
+        integrity="sha512-9usAa10IRO0HhonpyAIVpjrylPvoDwiPUiKdWk5t3PyolY1cOd4DSE0Ga+ri4AuTroPR5aQvXU9xC6qOPnzFeg=="
+        crossorigin="anonymous" referrerpolicy="no-referrer" />
+
     <style>
-    * {
-        margin: 0;
-        padding: 0;
-        box-sizing: border-box;
-        font-family: "poppins", sans-serif;
-    }
-
     body {
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        min-height: 100vh;
-        background: linear-gradient(to top left, #0000ff 0%, #ff33cc 100%);
+        background-image: url('https://media.gettyimages.com/id/1318919777/pt/v%C3%ADdeo/4k-network-digital-background.jpg?s=640x640&k=20&c=rShWdt2hp1jpk9Y7IrLjEkBmAv4DcQyI1zIt5tv-xP8=');
         background-size: cover;
-        background-position: center;
+        background-repeat: no-repeat;
+        background-attachment: fixed;
     }
 
-    .wrapper {
-        width: 420px;
-        background: linear-gradient(to top left, #0000ff 0%, #ff33cc 100%);
-        color: #fff;
-        border-radius: 10px;
-        padding: 20px 40px;
-    }
-
-    .wrapper h1 {
-        font-size: 36px;
-        text-align: center;
-    }
-
-    .wrapper .input-box {
-        position: relative;
-        width: 100%;
-        height: 50%;
-        margin: 30px 0;
-    }
-
-    .input-box input {
-        width: 100%;
-        height: 100%;
-        background: transparent;
-        border: none;
-        outline: none;
-        border: 2px solid rgba(255, 255, 255, .2);
-        border-radius: 40px;
-        font-size: 16px;
-        color: #fff;
-        padding: 20px 45px 20px 20px;
-    }
-
-    .input-box input::placeholder {
+    .card-title {
         color: #fff;
     }
 
-    .remember-forgot label input {
-        accent-color: #fff;
-        margin-right: 3px;
+    .card {
+        background-color: rgba(255, 255, 255, 0.3);
+        padding: 20px;
     }
 
-    .remember-forgot a {
-        color: #fff;
-        text-decoration: none;
+    .logo {
+        max-width: 200px;
+        height: auto;
+        display: block;
+        margin: 0 auto 40px;
     }
 
-    .remember-forgot a:hover {
-        text-decoration: underline;
-    }
-
-    .wrapper .btn {
-        width: 100%;
-        height: 45px;
-        background: #fff;
-        border: none;
-        outline: none;
-        border-radius: 40px;
-        box-shadow: 0 0 10px rgba(0, 0, 0, 1);
+    .field-icon {
+        position: absolute;
+        top: 50%;
+        right: 10px;
+        transform: translateY(-50%);
         cursor: pointer;
-        font-size: 16px;
-        color: #333;
-        font-weight: 600;
-    }
-
-    .wrapper .register-link {
-        font-size: 14.5px;
-        text-align: center;
-        margin-top: 20px 0 15px;
-    }
-
-    .register-link p a {
-        color: #333;
-        text-decoration: none;
-        font-weight: 600;
-    }
-
-    .register-link p a:hover {
-        text-decoration: white;
+        user-select: none;
     }
     </style>
 </head>
 
 <body>
+    <div class="min-vh-100 d-flex align-items-center">
+        <div class="container">
+            <div class="row justify-content-center">
+                <div class="col-md-4">
+                    <div class="card">
+                        <div class="card-body">
+                            <img src="https://binusasmg.sch.id/ppdb/logobinusa.png" alt="Logo" class="mb-4 logo">
+                            <h2 class="card-title text-center">Sign In</h2>
+                            <form action="<?php echo base_url(); ?>Auth/process_login" method="post" method="post">
+                                <div class="mb-3">
+                                    <input type="text" class="form-control" name="email" placeholder="Email" required>
+                                </div>
+                                <span class="text-center">Password Minimal 8 Karakter </span>
+                                <div class="mb-3 position-relative">
+                                    <input type="password" class="form-control" id="password" name="password"
+                                        placeholder="Password" required>
+                                    <span class="fa fa-fw fa-eye-slash field-icon toggle-password"
+                                        onclick="togglePassword()"></span>
+                                </div>
 
-    <div class="wrapper">
-        <form method="post" action="<?php echo base_url('Auth/aksi_login'); ?>">
-            <h1>login</h1>
-            <div class="input-box">
-                <label for="">username</label>
-                <input type="text" placeholder="username" name="username" required>
+                                <div class="text-center">
+                                    <button type="submit" class="btn btn-primary">Login</button>
+                                </div>
+                            </form>
+                            <!-- Menampilkan pesan kesalahan jika ada -->
+                            <?php if(isset($login_error)): ?>
+                            <div class="alert alert-danger mt-3">
+                                <?= $login_error; ?>
+                            </div>
+                            <?php endif; ?>
+                        </div>
+                    </div>
+                </div>
             </div>
-            <div class="input-box">
-                <label for="">password</label>
-                <input type="password" placeholder="password" name="password" required>
-            </div>
-
-            <button type="submit" class="btn">login</button>
-            <div class="register_link">
-                <p>sudah punya akun?<a href="<?php echo base_url('auth/register'); ?>" style=color:white> register</a>
-                </p>
-            </div>
-
-
-        </form>
-
+        </div>
     </div>
+
+    <script>
+    function togglePassword() {
+        var passwordField = document.getElementById("password");
+        var icon = document.querySelector(".toggle-password");
+
+        if (passwordField.type === "password") {
+            passwordField.type = "text";
+            icon.classList.remove("fa-eye-slash");
+            icon.classList.add("fa-eye");
+        } else {
+            passwordField.type = "password";
+            icon.classList.remove("fa-eye");
+            icon.classList.add("fa-eye-slash");
+        }
+    }
+    </script>
+
 </body>
 
 </html>

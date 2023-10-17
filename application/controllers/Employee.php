@@ -28,17 +28,22 @@ class Employee extends CI_Controller
         $this->load->view('employee/tambah_absen');
     }
  
-    public function profil()
-    {
-        if ($this->session->userdata('id')) {
-            $user_id = $this->session->userdata('id');
-            $data['user'] = $this->User_model->getUserById($user_id);
+    public function profile()
+	{
+		$data['akun'] = $this->m_model->get_by_id('user', 'id', $this->session->userdata('id'))->result();
+		$this->load->view('employee/profil', $data);
+	}
+    // public function profil()
+    // {
+    //     if ($this->session->userdata('id')) {
+    //         $user_id = $this->session->userdata('id');
+    //         $data['user'] = $this->User_model->getUserById($user_id);
 
-            $this->load->view('Employee/profil', $data);
-        } else {
-            redirect('auth/register');
-        }
-    }
+    //         $this->load->view('Employee/profil', $data);
+    //     } else {
+    //         redirect('auth/register');
+    //     }
+    // }
 
     public function save_absensi()
     {
