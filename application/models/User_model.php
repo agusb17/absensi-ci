@@ -73,7 +73,7 @@ class user_model extends CI_Model
     {
         $this->db->where('id', $id);
         $this->db->delete('User');
-    }
+    } 
 
     public function updateUserFoto($user_id, $foto)
     {
@@ -82,11 +82,11 @@ class user_model extends CI_Model
         $this->db->update('User', $data);
     }
 
-    public function ubah_absensi($table, $data, $where)
-    {
+     public function ubah_absensi($table, $data, $where)
+     {
         $data = $this->db->user_model($table, $data, $where);
         return $this->db->affected_rows();
-    }
+     }
 
     public function update_data($table, $data, $where) {
         $this->db->update($table, $data, $where);

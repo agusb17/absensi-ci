@@ -81,8 +81,8 @@ body {
                 <div class="d-flex flex-column align-items-center text-center p-3 py-5"><img class="rounded-circle mt-5"
                         width="150px"
                         src="https://i.pinimg.com/236x/ea/8c/ab/ea8cab12b5f08b6262749486c4761576.jpg"><span
-                        class="font-weight-bold">agus good</span><span
-                        class="text-black-50">agus0@gmail.com</span><span> </span></div>
+                        class="font-weight-bold">agus coyyy</span><span
+                        class="text-black-50">karyawan@gmail.com</span><span> </span></div>
             </div>
             <div class="col-md-5 border-right">
                 <div class="p-3 py-5">

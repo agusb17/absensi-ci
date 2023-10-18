@@ -26,6 +26,11 @@ table {
     margin-left: 29%;
 }
 
+.btn-success {
+    background-color: #28a745;
+    color: #fff;
+}
+
 @media (max-width: 768px) {
     h2 {
         margin-top: 80px;
@@ -50,6 +55,11 @@ table {
                         <th>ID</th>
                         <th>Nama</th>
                         <th>Email</th>
+                        <th>
+                            <a href="<?php echo base_url('admin/export_karyawan')?>"><button type="submit"
+                                    class="btn btn-success">export</button></a>
+
+                        </th>
                     </tr>
                 </thead>
                 <tbody>

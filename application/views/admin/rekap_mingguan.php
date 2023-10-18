@@ -111,6 +111,7 @@ p {
 
 
 <body>
+
     <div class="main m-4">
         <div class="container w-75">
             <div class="card">
@@ -118,21 +119,21 @@ p {
                     <h5>Rekap Mingguan</h5>
                 </div>
                 <div class="card-body">
-                    <form action="<?= base_url('admin/rekapPerMinggu'); ?>" method="post" class="row g-3">
-                        <div class="col-md-4">
-                            <div class="input-group">
-                                <span class="input-group-text">Tanggal awal</span>
-                                <input type="date" class="form-control" id="start_date" name="start_date">
-                            </div>
+                    <form action="<?= base_url('admin/rekapPerMinggu'); ?>" method="get" class="row g-3">
+                        <div class="input-group">
+                            <span class="input-group-text">Tanggal awal</span>
+                            <input type="date" class="form-control" id="start_date" name="start_date"
+                                value="<?php echo isset($_GET['start_date']) ? $_GET['start_date'] : ''; ?>">
                         </div>
-                        <div class="col-md-4">
-                            <div class="input-group">
-                                <span class="input-group-text">Tanggal akhir</span>
-                                <input type="date" class="form-control" id="end_date" name="end_date">
-                            </div>
+                        <div class="input-group">
+                            <span class="input-group-text">Tanggal akhir</span>
+                            <input type="date" class="form-control" id="end_date" name="end_date"
+                                value="<?php echo isset($_GET['end_date']) ? $_GET['end_date'] : ''; ?>">
                         </div>
                         <div class="col-md-4">
                             <button type="submit" class="btn btn-success">Filter</button>
+                            <button type="submit" name="submit" class="btn btn-sm btn-success"
+                                formaction="<?php echo base_url('admin/export_mingguan')?>">Export</button>
                         </div>
                     </form>
                     <br>
@@ -162,7 +163,13 @@ p {
                                     <td><?= $rekap->date; ?></td>
                                     <td><?= $rekap->jam_masuk; ?></td>
                                     <td><?= $rekap->jam_pulang; ?></td>
-                                    <td><?= $rekap->keterangan_izin; ?></td>
+                                    <td>
+                                        <?php if(empty($rekap->keterangan_izin) ): ?>
+                                        <span>Masuk</span>
+                                        <?php else: ?>
+                                        <?= $rekap->keterangan_izin; ?>
+                                        <?php endif; ?>
+                                    </td>
                                 </tr>
                                 <?php endforeach; ?>
                             </tbody>
@@ -174,5 +181,6 @@ p {
         </div>
     </div>
 </body>
+
 
 </html>
