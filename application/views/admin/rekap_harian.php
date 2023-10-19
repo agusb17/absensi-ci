@@ -5,7 +5,6 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Dashboard</title>
-    <link rel="stylesheet" type="text/css" href="<?php echo base_url('assets/css/responsive.css'); ?>">
 </head>
 <style>
 body {
@@ -98,22 +97,17 @@ h5 {
                     <h5>Rekap Harian</h5>
                 </div>
                 <div class="card-body">
-                    <form action="<?= base_url('admin/rekapPerHari'); ?>" method="post" class="row g-3">
-                        <div class="col-md-4">
-                            <div class="input-group">
-                                <span class="input-group-text">Tanggal awal</span>
-                                <input type="date" class="form-control" id="start_date" name="start_date">
-                            </div>
-                        </div>
-                        <div class="col-md-4">
-                            <div class="input-group">
-                                <span class="input-group-text">Tanggal akhir</span>
-                                <input type="date" class="form-control" id="end_date" name="end_date">
-                            </div>
+                    <form action="<?= base_url('admin/rekapPerHari'); ?>" method="get">
+                        <div class="d-flex justify-content-between">
+                            <input type="date" class="form-control" id="date" name="date"
+                                value="<?php echo isset($_GET['date']) ? $_GET['date'] : ''; ?>">
+
                         </div>
                         <div class="col-md-4">
                             <button type="submit" class="btn btn-success">Filter</button>
-                            <button type="submit" class="btn btn-success">export</button>
+                            <button type="submit" name="submit" class="btn btn-sm btn-success"
+                                formaction="<?php echo base_url('admin/export_harian')?>">Export</button>
+
                         </div>
                     </form>
                     <br>
@@ -140,11 +134,20 @@ h5 {
                                     <td><?= $rekap['date']; ?></td>
                                     <td><?= $rekap['jam_masuk']; ?></td>
                                     <td><?= $rekap['jam_pulang']; ?></td>
-                                    <td><?= $rekap['keterangan_izin']; ?></td>
+                                    <td>
+                                        <?php if(empty($rekap->keterangan_izin) ): ?>
+                                        <span>Masuk</span>
+                                        <?php else: ?>
+                                        <?= $rekap->keterangan_izin; ?>
+                                        <?php endif; ?>
+                                    </td>
+
                                 </tr>
+
                                 <?php endforeach; ?>
                             </tbody>
                         </table>
+
                         <?php else: ?>
                         <h5 class="text-center">Tidak ada data untuk tanggal ini.</h5>
                         <p class="text-cente">Silahkan pilih tanggal lain.</p>

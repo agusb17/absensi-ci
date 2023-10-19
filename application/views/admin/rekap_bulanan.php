@@ -132,7 +132,9 @@ h5 {
                                 <option value="12">Desember</option>
                             </select>
                             <button type="submit" class="btn btn-success">Filter</button>
-                            <button type="submit" class="btn btn-success">export</button>
+                            <button type="submit" name="submit" class="btn btn-sm btn-success"
+                                formaction="<?php echo base_url('admin/export_bulanan')?>">Export</button>
+
                         </div>
                     </form>
                     <br>
@@ -166,7 +168,14 @@ h5 {
                                     <td><?= $rekap_harian['date']; ?></td>
                                     <td><?= $rekap_harian['jam_masuk']; ?></td>
                                     <td><?= $rekap_harian['jam_pulang']; ?></td>
-                                    <td><?= $rekap_harian['keterangan_izin']; ?></td>
+                                    <td>
+                                        <?php if(empty($rekap['keterangan_izin']) ): ?>
+                                        <span>Masuk</span>
+                                        <?php else: ?>
+                                        <?= $rekap['keterangan_izin']; ?>
+                                        <?php endif; ?>
+                                    </td>
+
                                 </tr>
                                 <?php endif; ?>
                                 <?php endforeach; ?>

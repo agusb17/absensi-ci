@@ -5,7 +5,11 @@ class Admin_model extends CI_Model {
     public function __construct() {
         parent::__construct();
     }
-
+    function get_data($tabel)
+    {
+        return $this->db->get($tabel);
+        $this->db->join('akun', 'absensi.id_karyawan = akun.id', 'left');
+    }
     public function registeruser($data)
     {
         $this->db->insert('user', $data);
@@ -16,22 +20,30 @@ class Admin_model extends CI_Model {
         return $query->result_array();
     }
 
-    public function getRekapHarian() {
-        $this->db->select('*');
+    public function getRekapHarian($date)
+    {
+        $this->db->select('absensi.id, absensi.date, absensi.kegiatan, absensi.jam_masuk, absensi.jam_pulang, absensi.keterangan_izin');
         $this->db->from('absensi');
-        $this->db->group_by('date');
+        $this->db->where('absensi.date', $date); // Menyaring data berdasarkan date
         $query = $this->db->get();
         return $query->result_array();
     }
 
-    public function getPerHari($tanggal)
+    public function getPerHari($date)
     {
         $this->db->select('absensi.*, user.username');
         $this->db->from('absensi');
         $this->db->join('user', 'absensi.id_karyawan = user.id', 'left');
-        $this->db->where('date', $tanggal);
+        $this->db->where('date', $date);
         $query = $this->db->get();
         return $query->result();
+    }
+
+
+    public function get_by_id($tabel, $id_column, $id)
+    {
+        $data = $this->db->where($id_column, $id)->get($tabel);
+        return ($data);
     }
     
     public function getBulanan($bulan)
@@ -52,10 +64,6 @@ class Admin_model extends CI_Model {
         $this->db->where('date <', $end_date);
         $query = $this->db->get();
         return $query->result();
-    }
-    
-    function get_data($table){
-        return $this->db->get($table);
     }
     public function getRekapPerBulan($bulan) {
         $this->db->select('MONTH(date) as bulan, COUNT(*) as total_absensi');
