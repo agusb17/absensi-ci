@@ -7,6 +7,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <link href="https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css" rel="stylesheet" />
     <link rel="stylesheet" href="style.css" />
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
 </head>
 <style>
 /* Import Google font - Poppins */
@@ -347,53 +348,63 @@ body.dark {
         <div class="menu_content">
             <ul class="menu_items">
                 <div class="menu_title menu_dahsboard"></div>
-                <li class="item">
-                    <div href="#" class="nav_link submenu_item">
-                        <span class="navlink_icon">
-                            <i class="bi bi-bank2"></i>
-                        </span>
-                        <span class="navlink">Home</span>
-                        <i class="bi bi-bank2"></i>
-                    </div>
 
-                    <ul class="menu_items submenu">
-                        <a href="<?php echo base_url(
+        </div>
+
+        <ul class="">
+            <a href="<?php echo base_url(
                             'employee/history'
-                        ); ?>" class="nav_link sublink">History</a>
-                    </ul>
+                        ); ?>" class="nav_link sublink"><i class="fa-solid fa-clock-rotate-left"></i>History</a>
+        </ul>
 
-                    <ul class="menu_items submenu">
-                        <a href="<?php echo base_url(
+        <ul class="">
+            <a href="<?php echo base_url(
                             'employee/tambah_absen'
-                        ); ?>" class="nav_link sublink">Absensi</a>
-                    </ul>
-                    <ul class="menu_items submenu">
-                        <a href="<?php echo base_url(
-                            'employee/dashboard'
-                        ); ?>" class="nav_link sublink">Dashboard</a>
-                    </ul>
+                        ); ?>" class="nav_link sublink"><i class="fa-solid fa-calendar-check"></i>Absensi</a>
+        </ul>
 
-                    <ul class="menu_items submenu">
-                        <a href="<?php echo base_url(
+
+        <ul class="">
+            <a href="<?php echo base_url(
                             'employee/izin'
-                        ); ?>" class="nav_link sublink">izin</a>
-                    </ul>
+                        ); ?>" class="nav_link sublink"><i class="fa-regular fa-calendar-xmark"></i>izin</a>
+        </ul>
 
 
 
-                </li><!-- Sidebar Open / Close -->
-                <div class="bottom_content">
-                    <div class="bottom expand_sidebar">
-                        <span> Expand</span>
-                        <i class='bx bx-log-in'></i>
-                    </div>
-                    <div class="bottom collapse_sidebar">
-                        <span> Log out</span>
-                        <i class='bx bx-log-out'></i>
-                    </div>
-                </div>
+        </li><!-- Sidebar Open / Close -->
+        <div class="bottom_content">
+            <div class="bottom collapse_sidebar">
+                <span>Expands</span>
+                <i class="fa-solid fa-expand"></i>
+            </div>
+            <div class="bottom collapse_sidebarr">
+                <span> Log out</span>
+                <a onclick="confirmLogout()">
+                    <i class="fa-solid fa-arrow-right-from-bracket"></i>
+                </a>
+            </div>
+        </div>
         </div>
     </nav>
+    <!-- LOGOUT -->
+    <script>
+    function confirmLogout() {
+        Swal.fire({
+            title: 'Yakin mau LogOut?',
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonColor: '#3085d6',
+            cancelButtonColor: '#d33',
+            confirmButtonText: 'Ya',
+            cancelButtonText: 'Batal'
+        }).then((result) => {
+            if (result.isConfirmed) {
+                window.location.href = "<?php echo base_url('auth') ?>";
+            }
+        });
+    }
+    </script>
     <!-- JavaScript -->
     <script>
     const body = document.querySelector("body");

@@ -54,8 +54,6 @@
                 <div class="col-md-4">
                     <div class="">
                         <div class="container">
-                            <img src="https://img.freepik.com/premium-vector/welcome-beautiful-inscription-isolated_110464-295.jpg"
-                                alt="Logo" class="mb-4 logo">
                             <h2 class="card-title text-center text-dark fs-1"> SELAMAT DATANG </h2>
                             <hr class="text-light">
                             <div class="d-flex justify-content-center">

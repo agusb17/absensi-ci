@@ -6,6 +6,8 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <link href="https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css" rel="stylesheet" />
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
+
     <link rel="stylesheet" href="style.css" />
 </head>
 <style>
@@ -207,6 +209,7 @@ body.dark {
 
 .sidebar.close .navlink {
     display: none;
+    padding: 10px 20px;
 }
 
 .nav_link:hover {
@@ -246,7 +249,7 @@ body.dark {
 }
 
 .submenu .sublink {
-    padding: 15px 15px 15px 52px;
+    padding: 15px 15px 20px 52px;
 }
 
 .bottom_content {
@@ -293,6 +296,10 @@ body.dark {
     display: none;
 }
 
+.sidebar.hoverable .collapse_sidebarr {
+    display: none;
+}
+
 #sidebarOpen {
     display: none;
 }
@@ -331,6 +338,14 @@ body.dark {
         <div class="search_bar">
             <input type="text" placeholder="Search" />
         </div>
+        <div class="navbar_content">
+            <i class="bi bi-grid"></i>
+            <a href="<?php echo base_url('Admin/profil'); ?>">
+                <img src="https://static.vecteezy.com/system/resources/thumbnails/002/318/271/small/user-profile-icon-free-vector.jpg"
+                    alt="" class="profile" />
+            </a>
+        </div>
+
 
 
     </nav>
@@ -341,52 +356,70 @@ body.dark {
             <ul class="menu_items">
                 <div class="menu_title menu_dahsboard"></div>
                 <li class="item">
-                    <div href="#" class="nav_link submenu_item">
-                        <span class="navlink_icon">
-                            <i class="bi bi-bank2"></i>
-                        </span>
-                        <span class="navlink">Home</span>
-                        <i class="bi bi-bank2"></i>
-                    </div>
 
-                    <ul class="menu_items submenu">
-                        <a href="<?php echo base_url(
+
+        </div>
+
+        <ul class="md-5">
+            <a href="<?php echo base_url(
                             'Admin/rekapPerMinggu'
-                        ); ?>" class="nav_link sublink">rekap mingguan</a>
-                    </ul>
+                        ); ?>" class="nav_link sublink"><i class="fa-solid fa-calendar-days"> </i>rekap mingguan</a>
+        </ul>
 
-                    <ul class="menu_items submenu">
+        <ul class="">
 
-                        <a href="<?php echo base_url(
+            <a href="<?php echo base_url(
                             'Admin/rekapPerBulan'
-                        ); ?>" class="nav_link sublink">rekap bulanan</a>
-                    </ul>
-                    <ul class="menu_items submenu">
-                        <a href="<?php echo base_url(
+                        ); ?>" class="nav_link sublink"><i class="fa-regular fa-calendar-days"></i>rekap bulanan</a>
+        </ul>
+        <ul class="">
+            <a href="<?php echo base_url(
                             'Admin/rekapPerHari'
-                        ); ?>" class="nav_link sublink">rekap harian</a>
-                    </ul>
+                        ); ?>" class="nav_link sublink"><i class="fa-sharp fa-solid fa-calendar-days"></i>rekap
+                harian</a>
+        </ul>
 
-                    <ul class="menu_items submenu">
-                        <a href="<?php echo base_url(
+        <ul class="">
+            <a href="<?php echo base_url(
                             'Admin/karyawan'
-                        ); ?>" class="nav_link sublink">karyawan</a>
-                    </ul>
+                        ); ?>" class="nav_link sublink"><i
+                    class="fa-sharp fa-regular fa-calendar-days"></i>karyawan</a>
+        </ul>
 
 
-                </li><!-- Sidebar Open / Close -->
-                <div class="bottom_content">
-                    <div class="bottom expand_sidebar">
-                        <span> Expand</span>
-                        <i class='bx bx-log-in'></i>
-                    </div>
-                    <div class="bottom collapse_sidebar">
-                        <span> Log out</span>
-                        <i class='bx bx-log-out'></i>
-                    </div>
-                </div>
+        </li><!-- Sidebar Open / Close -->
+        <div class="bottom_content">
+            <div class="bottom collapse_sidebar">
+                <span>Expands</span>
+                <i class="fa-solid fa-expand"></i>
+            </div>
+            <div class="bottom collapse_sidebarr">
+                <span> Log out</span>
+                <a onclick="confirmLogout()">
+                    <i class="fa-solid fa-arrow-right-from-bracket"></i>
+                </a>
+            </div>
+        </div>
         </div>
     </nav>
+    <!-- LOGOUT -->
+    <script>
+    function confirmLogout() {
+        Swal.fire({
+            title: 'Yakin mau LogOut?',
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonColor: '#3085d6',
+            cancelButtonColor: '#d33',
+            confirmButtonText: 'Ya',
+            cancelButtonText: 'Batal'
+        }).then((result) => {
+            if (result.isConfirmed) {
+                window.location.href = "<?php echo base_url('auth') ?>";
+            }
+        });
+    }
+    </script>
     <!-- JavaScript -->
     <script>
     const body = document.querySelector("body");

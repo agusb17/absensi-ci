@@ -18,13 +18,10 @@ class Admin extends CI_Controller
 
     public function karyawan()
     {
-        $data['absen'] = $this-> admin_model->get_data('absensi')->num_rows();
+        $data['absen'] = $this->admin_model->get_data('absensi')->num_rows();
         $data['absensi'] = $this->user_model->getAllKaryawan();
         $this->load->view('admin/karyawan', $data);
     }
-
-
-   
 
     public function export_karyawan()
     {
@@ -95,17 +92,13 @@ class Admin extends CI_Controller
         $sheet->setCellValue('A3', 'No');
         $sheet->setCellValue('B3', 'Username');
         $sheet->setCellValue('C3', 'Email');
-        $sheet->setCellValue('D3', 'Nama Depan');
-        $sheet->setCellValue('E3', 'Nama Belakang');
 
         $sheet->getStyle('A3')->applyFromArray($style_col);
         $sheet->getStyle('B3')->applyFromArray($style_col);
         $sheet->getStyle('C3')->applyFromArray($style_col);
-        $sheet->getStyle('D3')->applyFromArray($style_col);
-        $sheet->getStyle('E3')->applyFromArray($style_col);
 
         $role = 'karyawan';
-  $karyawan_data = $this->admin_model->get_data_by_role($role)->result();
+        $karyawan_data = $this->admin_model->get_data_by_role($role)->result();
 
         $no = 1;
         $numrow = 4;
@@ -113,14 +106,10 @@ class Admin extends CI_Controller
             $sheet->setCellValue('A' . $numrow, $no);
             $sheet->setCellValue('B' . $numrow, $data->username);
             $sheet->setCellValue('C' . $numrow, $data->email);
-            $sheet->setCellValue('D' . $numrow, $data->nama_depan);
-            $sheet->setCellValue('E' . $numrow, $data->nama_belakang);
 
             $sheet->getStyle('A' . $numrow)->applyFromArray($style_row);
             $sheet->getStyle('B' . $numrow)->applyFromArray($style_row);
             $sheet->getStyle('C' . $numrow)->applyFromArray($style_row);
-            $sheet->getStyle('D' . $numrow)->applyFromArray($style_row);
-            $sheet->getStyle('E' . $numrow)->applyFromArray($style_row);
 
             $no++;
             $numrow++;
@@ -129,8 +118,6 @@ class Admin extends CI_Controller
         $sheet->getColumnDimension('A')->setWidth(5);
         $sheet->getColumnDimension('B')->setWidth(25);
         $sheet->getColumnDimension('C')->setWidth(25);
-        $sheet->getColumnDimension('D')->setWidth(20);
-        $sheet->getColumnDimension('E')->setWidth(30);
 
         $sheet->getDefaultRowDimension()->setRowHeight(-1);
 
@@ -145,13 +132,15 @@ class Admin extends CI_Controller
         header(
             'Content-Type: application/vnd.openxmlformats-officedocument.spreadsheetml.sheet'
         );
-        header('Content-Disposition: attachment; filename="Daftar Karyawan.xlsx"');
+        header(
+            'Content-Disposition: attachment; filename="Daftar Karyawan.xlsx"'
+        );
         header('Cache-Control: max-age=0');
 
         $writer = new Xlsx($spreadsheet);
         $writer->save('php://output');
     }
-    
+
     public function export_absen()
     {
         $spreadsheet = new Spreadsheet();
@@ -280,17 +269,19 @@ class Admin extends CI_Controller
         header(
             'Content-Type: application/vnd.openxmlformats-officedocument.spreadsheetml.sheet'
         );
-        header('Content-Disposition: attachment; filename="Daftar Absen Karyawan.xlsx"');
+        header(
+            'Content-Disposition: attachment; filename="Daftar Absen Karyawan.xlsx"'
+        );
         header('Cache-Control: max-age=0');
 
         $writer = new Xlsx($spreadsheet);
         $writer->save('php://output');
     }
 
- public function export_harian()
+    public function export_harian()
     {
-  $tanggal = $this->input->get('date');
-     
+        $tanggal = $this->input->get('date');
+
         $spreadsheet = new Spreadsheet();
         $sheet = $spreadsheet->getActiveSheet();
 
@@ -382,7 +373,10 @@ class Admin extends CI_Controller
             $sheet->setCellValue('D' . $numrow, $data->date);
             $sheet->setCellValue('E' . $numrow, $data->jam_masuk);
             $sheet->setCellValue('F' . $numrow, $data->jam_pulang);
-            $sheet->setCellValue('G' . $numrow, !$data->keterangan_izin ? 'Masuk' : $data->keterangan_izin );
+            $sheet->setCellValue(
+                'G' . $numrow,
+                !$data->keterangan_izin ? 'Masuk' : $data->keterangan_izin
+            );
 
             $sheet->getStyle('A' . $numrow)->applyFromArray($style_row);
             $sheet->getStyle('B' . $numrow)->applyFromArray($style_row);
@@ -429,7 +423,7 @@ class Admin extends CI_Controller
         $raw_end_date = $this->input->get('end_date');
         $start_date = date('Y-m-d', strtotime($raw_start_date));
         $end_date = date('Y-m-d', strtotime($raw_end_date));
-    
+
         $spreadsheet = new Spreadsheet();
         $sheet = $spreadsheet->getActiveSheet();
 
@@ -518,7 +512,10 @@ class Admin extends CI_Controller
             $sheet->setCellValue('C' . $numrow, $row->date);
             $sheet->setCellValue('D' . $numrow, $row->jam_masuk);
             $sheet->setCellValue('E' . $numrow, $row->jam_pulang);
-            $sheet->setCellValue('F' . $numrow, $row->keterangan_izin);
+            $sheet->setCellValue(
+                'F' . $numrow,
+                !$row->keterangan_izin ? 'Masuk' : $row->keterangan_izin
+            );
 
             $sheet->getStyle('A' . $numrow)->applyFromArray($style_row);
             $sheet->getStyle('B' . $numrow)->applyFromArray($style_row);
@@ -551,19 +548,20 @@ class Admin extends CI_Controller
         header(
             'Content-Type: application/vnd.openxmlformats-officedocument.spreadsheetml.sheet'
         );
-        header('Content-Disposition: attachment; filename="Rekap Mingguan.xlsx"');
+        header(
+            'Content-Disposition: attachment; filename="Rekap Mingguan.xlsx"'
+        );
         header('Cache-Control: max-age=0');
 
         $writer = new Xlsx($spreadsheet);
         $writer->save('php://output');
     }
 
-
     public function export_bulanan()
     {
         $bulan = $this->input->get('bulan');
-  $absensi = $this->admin_model->GetBulanan($bulan);
-        
+        $absensi = $this->admin_model->GetBulanan($bulan);
+
         $spreadsheet = new \PhpOffice\PhpSpreadsheet\Spreadsheet();
         $sheet = $spreadsheet->getActiveSheet();
 
@@ -620,39 +618,42 @@ class Admin extends CI_Controller
                 ],
             ],
         ];
-        
+
         $sheet->setCellValue('A1', 'Rekap Bulanan');
         $sheet->mergeCells('A1:G1');
         $sheet
-        ->getStyle('A1')
-        ->getFont()
-        ->setBold(true);
-        
+            ->getStyle('A1')
+            ->getFont()
+            ->setBold(true);
+
         $sheet->setCellValue('A3', 'no');
         $sheet->setCellValue('B3', 'kegiatan');
         $sheet->setCellValue('C3', 'date');
         $sheet->setCellValue('D3', 'Jam_masuk');
         $sheet->setCellValue('E3', 'Jam_Pulang');
         $sheet->setCellValue('F3', 'Keterangan_izin');
-        
+
         $sheet->getStyle('A3')->applyFromArray($style_col);
         $sheet->getStyle('B3')->applyFromArray($style_col);
         $sheet->getStyle('C3')->applyFromArray($style_col);
         $sheet->getStyle('D3')->applyFromArray($style_col);
         $sheet->getStyle('E3')->applyFromArray($style_col);
         $sheet->getStyle('F3')->applyFromArray($style_col);
-        
+
         $bulanan = $this->admin_model->getBulanan($bulan);
-        
+
         $no = 1;
         $numrow = 4;
-        foreach($bulanan as $data) {
+        foreach ($bulanan as $data) {
             $sheet->setCellValue('A' . $numrow, $no);
-   $sheet->setCellValue('B' . $numrow, $data->kegiatan);
-   $sheet->setCellValue('C' . $numrow, $data->date);
-   $sheet->setCellValue('D' . $numrow, $data->jam_masuk);
-   $sheet->setCellValue('E' . $numrow, $data->jam_pulang); 
-            $sheet->setCellValue('F' . $numrow, !$data->keterangan_izin ? 'Masuk' : $data->keterangan_izin );
+            $sheet->setCellValue('B' . $numrow, $data->kegiatan);
+            $sheet->setCellValue('C' . $numrow, $data->date);
+            $sheet->setCellValue('D' . $numrow, $data->jam_masuk);
+            $sheet->setCellValue('E' . $numrow, $data->jam_pulang);
+            $sheet->setCellValue(
+                'F' . $numrow,
+                !$data->keterangan_izin ? 'Masuk' : $data->keterangan_izin
+            );
 
             $sheet->getStyle('A' . $numrow)->applyFromArray($style_row);
             $sheet->getStyle('B' . $numrow)->applyFromArray($style_row);
@@ -675,18 +676,25 @@ class Admin extends CI_Controller
         $sheet->getDefaultRowDimension()->setRowHeight(-1);
 
         $sheet
-        ->getPageSetup()
-        ->setOrientation(
-        \PhpOffice\PhpSpreadsheet\Worksheet\PageSetup::ORIENTATION_LANDSCAPE
-        );
+            ->getPageSetup()
+            ->setOrientation(
+                \PhpOffice\PhpSpreadsheet\Worksheet\PageSetup::ORIENTATION_LANDSCAPE
+            );
 
         $sheet->setTitle('Rekap Bulanan');
 
-        header('Content-Type: application/vnd.openxmlformats-officedocument.spreadsheetml.sheet');
-        header('Content-Disposition: attachment; filename="Rekap Bulanan.xlsx"');
+        header(
+            'Content-Type: application/vnd.openxmlformats-officedocument.spreadsheetml.sheet'
+        );
+        header(
+            'Content-Disposition: attachment; filename="Rekap Bulanan.xlsx"'
+        );
         header('Cache-Control: max-age=0');
 
-        $writer = \PhpOffice\PhpSpreadsheet\IOFactory::createWriter($spreadsheet, 'Xlsx');
+        $writer = \PhpOffice\PhpSpreadsheet\IOFactory::createWriter(
+            $spreadsheet,
+            'Xlsx'
+        );
         $writer->save('php://output');
     }
     public function rekapPerHari()
@@ -695,120 +703,116 @@ class Admin extends CI_Controller
         $data['perhari'] = $this->admin_model->getRekapHarian($date);
         $this->load->view('admin/rekap_harian', $data);
     }
-    public function rekapPerMinggu() {
+    public function rekapPerMinggu()
+    {
         $start_date = $this->input->get('start_date');
         $end_date = $this->input->get('end_date');
 
         if ($start_date && $end_date) {
-        $data['perminggu'] = $this->admin_model->getRekapPerMinggu($start_date, $end_date);
+            $data['perminggu'] = $this->admin_model->getRekapPerMinggu(
+                $start_date,
+                $end_date
+            );
         } else {
-        $data['perminggu'] = []; // Atau lakukan sesuai dengan kebutuhan logika Anda jika tanggal tidak ada
+            $data['perminggu'] = []; // Atau lakukan sesuai dengan kebutuhan logika Anda jika tanggal tidak ada
         }
 
         $this->load->view('admin/rekap_mingguan', $data);
         // $data['absensi'] = $this->m_model->getPerMinggu();
     }
 
-    public function rekapPerBulan() {
+    public function rekapPerBulan()
+    {
         $bulan = $this->input->get('bulan'); // Ambil bulan dari parameter GET
         $data['rekap_bulanan'] = $this->admin_model->getRekapPerBulan($bulan);
-        $data['rekap_harian'] = $this->admin_model->getRekapHarianByBulan($bulan);
+        $data['rekap_harian'] = $this->admin_model->getRekapHarianByBulan(
+            $bulan
+        );
         $this->load->view('admin/rekap_bulanan', $data);
     }
 
     public function profil()
     {
-        
-        if ($this->session->userdata('id')) {
-            $user_id = $this->session->userdata('id');
-            $data['user'] = $this->admin_model->getuserByID($user_id);
-
-            $this->load->view('Admin/profil', $data);
-        } else {
-            redirect('auth/register');
-        }
+        $this->load->view('admin/profil');
     }
 
-    
     public function akun()
     {
         if ($this->session->userdata('id')) {
             $user_id = $this->session->userdata('id');
             $data['user'] = $this->User_model->getUserById($user_id);
-    
+
             $this->load->view('admin/akun', $data);
         } else {
             redirect('auth/login');
         }
     }
-    
-        public function aksi_ubah_akun()
-        {
-            $foto = $this->upload_image_admin('foto');
-            if ($foto[0] == false) {
-                $password_baru = $this->input->post('password_baru');
-                $konfirmasi_password = $this->input->post('konfirmasi_password');
-                $email = $this->input->post('email');
-                $username = $this->input->post('username');
-                $data = [
-                    'foto' => 'User.png',
-                    'email' => $email,
-                    'username' => $username,
-                ];
-                if (!empty($password_baru)) {
-                    if ($password_baru === $konfirmasi_password) {
-                        $data['password'] = md5($password_baru);
-                    } else {
-                        $this->session->set_flashdata(
-                            'message',
-                            'Password baru dan Konfirmasi password harus sama'
-                        );
-                        redirect(base_url('admin/akun'));
-                    }
-                }
-                $this->session->set_userdata($data);
-                $update_result = $this->m_model->update('user', $data, [
-                    'id' => $this->session->userdata('id'),
-                ]);
-    
-                if ($update_result) {
-                    redirect(base_url('admin/akun'));
+
+    public function aksi_ubah_akun()
+    {
+        $foto = $this->upload_image_admin('foto');
+        if ($foto[0] == false) {
+            $password_baru = $this->input->post('password_baru');
+            $konfirmasi_password = $this->input->post('konfirmasi_password');
+            $email = $this->input->post('email');
+            $username = $this->input->post('username');
+            $data = [
+                'foto' => 'User.png',
+                'email' => $email,
+                'username' => $username,
+            ];
+            if (!empty($password_baru)) {
+                if ($password_baru === $konfirmasi_password) {
+                    $data['password'] = md5($password_baru);
                 } else {
+                    $this->session->set_flashdata(
+                        'message',
+                        'Password baru dan Konfirmasi password harus sama'
+                    );
                     redirect(base_url('admin/akun'));
-                }
-            } else {
-                $password_baru = $this->input->post('password_baru');
-                $konfirmasi_password = $this->input->post('konfirmasi_password');
-                $email = $this->input->post('email');
-                $username = $this->input->post('username');
-                $data = [
-                    'foto' => $foto[1],
-                    'email' => $email,
-                    'username' => $username,
-                ];
-                if (!empty($password_baru)) {
-                    if ($password_baru === $konfirmasi_password) {
-                        $data['password'] = md5($password_baru);
-                    } else {
-                        $this->session->set_flashdata(
-                            'message',
-                            'Password baru dan Konfirmasi password harus sama'
-                        );
-                        redirect(base_url('admin/akun'));
-                    }
-                }
-                $this->session->set_userdata($data);
-                $update_result = $this->m_model->update('user', $data, [
-                    'id' => $this->session->userdata('id'),
-                ]);
-    
-                if ($update_result) {
-                    redirect(base_url('employee/akun'));
-                } else {
-                    redirect(base_url('employee/akun'));
                 }
             }
+            $this->session->set_userdata($data);
+            $update_result = $this->m_model->update('user', $data, [
+                'id' => $this->session->userdata('id'),
+            ]);
+
+            if ($update_result) {
+                redirect(base_url('admin/akun'));
+            } else {
+                redirect(base_url('admin/akun'));
+            }
+        } else {
+            $password_baru = $this->input->post('password_baru');
+            $konfirmasi_password = $this->input->post('konfirmasi_password');
+            $email = $this->input->post('email');
+            $username = $this->input->post('username');
+            $data = [
+                'foto' => $foto[1],
+                'email' => $email,
+                'username' => $username,
+            ];
+            if (!empty($password_baru)) {
+                if ($password_baru === $konfirmasi_password) {
+                    $data['password'] = md5($password_baru);
+                } else {
+                    $this->session->set_flashdata(
+                        'message',
+                        'Password baru dan Konfirmasi password harus sama'
+                    );
+                    redirect(base_url('admin/akun'));
+                }
+            }
+            $this->session->set_userdata($data);
+            $update_result = $this->m_model->update('user', $data, [
+                'id' => $this->session->userdata('id'),
+            ]);
+
+            if ($update_result) {
+                redirect(base_url('employee/akun'));
+            } else {
+                redirect(base_url('employee/akun'));
+            }
         }
-        
     }
-    
+}

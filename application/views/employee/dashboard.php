@@ -28,7 +28,7 @@
 }
 
 .icon {
-    margin-top: 20px;
+    margin-top: 100px;
     float: right;
 }
 
@@ -76,7 +76,7 @@
             <div class="col-md-4">
                 <div class="card mb-4">
                     <div class="card-body">
-                        <h6 class="card-title">Total</h6>
+                        <h6 class="card-title">Total karyawan</h6>
                         <h1>3</h1>
                     </div>
                 </div>
