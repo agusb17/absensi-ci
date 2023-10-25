@@ -28,7 +28,7 @@
 }
 
 .icon {
-    margin-top: 100px;
+    margin-top: 20px;
     float: right;
 }
 
@@ -85,22 +85,40 @@
         <table class="table table-striped mt-5">
             <thead>
                 <tr>
-                    <th scope="col"></th>
-                    <th scope="col"></th>
-                    <th scope="col"></th>
-                    <th scope="col"></th>
-                    <th scope="col"></th>
-                    <th scope="col"></th>
-                    <th scope="col"></th>
-                    <th scope="col text-center"></th>
+                    <th scope="col">No</th>
+                    <th scope="col">Kegiatan</th>
+                    <th scope="col">Tanggal</th>
+                    <th scope="col">Jam Masuk</th>
+                    <th scope="col">Jam Pulang</th>
+                    <th scope="col">Keterangan</th>
                 </tr>
             </thead>
             <tbody>
+                <?php $i = 1; ?>
+                <?php foreach ($absensi as $row): ?>
                 <tr>
+                    <td><span class="number"><?php echo $i; ?></span></td>
+                    <td><?php echo $row->kegiatan; ?></td>
+                    <td><?php echo $row->date; ?></td>
+                    <td><?php echo $row->jam_masuk; ?></td>
+                    <td>
+                        <span id="jam-pulang-<?php echo $i; ?>">
+                            <?php echo $row->jam_pulang; ?>
+                        </span>
+                    </td>
+                    <td>
+                        <?php if (!empty($row->keterangan_izin)): ?>
+                        <?php echo $row->keterangan_izin; ?>
+                        <?php else: ?>
+                        <?php echo $row->kegiatan; ?>
+                        <?php endif; ?>
+                    </td>
 
-                </tr>
+                    <?php $i++; ?>
+                    <?php endforeach; ?>
             </tbody>
         </table>
+
     </div>
 </body>
 

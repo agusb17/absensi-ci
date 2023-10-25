@@ -23,23 +23,79 @@ class Admin_model extends CI_Model
         return $query->result_array();
     }
 
-    public function getRekapHarian($date)
+    // Profile Start
+    public function image_akun()
     {
-        $this->db->select(
-            'absensi.id, absensi.date, absensi.kegiatan, absensi.jam_masuk, absensi.jam_pulang, absensi.keterangan_izin'
-        );
+        $id_karyawan = $this->session->akundata('id');
+        $this->db->select('image');
+        $this->db->from('akun');
+        $this->db->where('id_karyawan');
+        $query = $this->db->get();
+
+        if ($query->num_rows() > 0) {
+            $result = $query->row();
+            return $result->image;
+        } else {
+            return false;
+        }
+    }
+
+    public function get_admin_image_by_id($id)
+    {
+        $this->db->select('image');
+        $this->db->from('akun');
+        $this->db->where('id', $id);
+        $query = $this->db->get();
+
+        if ($query->num_rows() > 0) {
+            $result = $query->row();
+            return $result->image;
+        } else {
+            return false;
+        }
+    }
+    public function update_image($akun_id, $new_image)
+    {
+        $data = [
+            'image' => $new_image,
+        ];
+
+        $this->db->where('id', $akun_id); // Sesuaikan dengan kolom dan nama tabel yang sesuai
+        $this->db->update('akun', $data); // Sesuaikan dengan nama tabel Anda
+
+        return $this->db->affected_rows(); // Mengembalikan jumlah baris yang diupdate
+    }
+
+    public function get_current_image($akun_id)
+    {
+        $this->db->select('image');
+        $this->db->from('akun'); // Gantilah 'akun_table' dengan nama tabel Anda
+        $this->db->where('id', $akun_id);
+        $query = $this->db->get();
+
+        if ($query->num_rows() > 0) {
+            $row = $query->row();
+            return $row->image;
+        }
+
+        return null; // Kembalikan null jika data tidak ditemukan
+    }
+
+    public function getRekapHarian()
+    {
+        $this->db->select('*');
         $this->db->from('absensi');
-        $this->db->where('absensi.date', $date); // Menyaring data berdasarkan date
+        $this->db->group_by('date');
         $query = $this->db->get();
         return $query->result_array();
     }
 
-    public function getPerHari($date)
+    public function getPerHari($tanggal)
     {
         $this->db->select('absensi.*, user.username');
         $this->db->from('absensi');
         $this->db->join('user', 'absensi.id_karyawan = user.id', 'left');
-        $this->db->where('date', $date);
+        $this->db->where('date', $tanggal);
         $query = $this->db->get();
         return $query->result();
     }
@@ -112,5 +168,11 @@ class Admin_model extends CI_Model
         $query = $this->db->get();
 
         return $query->row();
+    }
+
+    public function delete($table, $field, $id)
+    {
+        $data = $this->db->delete($table, [$field => $id]);
+        return $data;
     }
 }

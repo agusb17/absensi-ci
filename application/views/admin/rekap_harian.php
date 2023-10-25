@@ -91,30 +91,32 @@ h5 {
 
 <body>
     <div class="main m-4">
-        <div class="container w-75">
+        <div class="container   ">
             <div class="card">
-                <div class="card-header d-flex justify-content-between">
+                <div class="card-header d-flex justify-content-between align-items-center">
                     <h5>Rekap Harian</h5>
                 </div>
                 <div class="card-body">
-                    <form action="<?= base_url('admin/rekapPerHari'); ?>" method="get">
+                    <form action="<?= base_url(
+                        'admin/rekapPerHari'
+                    ) ?>" method="get">
                         <div class="d-flex justify-content-between">
                             <input type="date" class="form-control" id="date" name="date"
-                                value="<?php echo isset($_GET['date']) ? $_GET['date'] : ''; ?>">
-
-                        </div>
-                        <div class="col-md-4">
-                            <button type="submit" class="btn btn-success">Filter</button>
-                            <button type="submit" name="submit" class="btn btn-sm btn-success"
-                                formaction="<?php echo base_url('admin/export_harian')?>">Export</button>
-
+                                value="<?php echo isset($_GET['date'])
+                                    ? $_GET['date']
+                                    : ''; ?>">
+                            <button type="submit" class="btn btn-success mx-2">Filter</button>
+                            <button type="submit" name="submit" class="btn btn-sm btn-success "
+                                formaction="<?php echo base_url(
+                                    'admin/export_harian'
+                                ); ?>">Export</button>
                         </div>
                     </form>
                     <br>
                     <hr>
                     <br>
                     <div class="table-responsive">
-                        <?php if(!empty($perhari)): ?>
+                        <?php if (!empty($perhari)): ?>
                         <table class="table">
                             <thead>
                                 <tr>
@@ -127,30 +129,34 @@ h5 {
                                 </tr>
                             </thead>
                             <tbody>
-                                <?php $no=0;foreach ($perhari as $rekap): $no++ ?>
+                                <?php
+                                $no = 0;
+                                foreach ($perhari as $rekap):
+                                    $no++; ?>
                                 <tr>
-                                    <td><?= $no; ?></td>
-                                    <td><?= $rekap['kegiatan']; ?></td>
-                                    <td><?= $rekap['date']; ?></td>
-                                    <td><?= $rekap['jam_masuk']; ?></td>
-                                    <td><?= $rekap['jam_pulang']; ?></td>
+                                    <td><?= $no ?></td>
+                                    <td><?= $rekap->kegiatan ?></td>
+                                    <td><?= $rekap->date ?></td>
+                                    <td><?= $rekap->jam_masuk ?></td>
+                                    <td><?= $rekap->jam_pulang ?></td>
                                     <td>
-                                        <?php if(empty($rekap->keterangan_izin) ): ?>
+                                        <?php if (
+                                            empty($rekap->keterangan_izin)
+                                        ): ?>
                                         <span>Masuk</span>
                                         <?php else: ?>
-                                        <?= $rekap->keterangan_izin; ?>
+                                        <?= $rekap->keterangan_izin ?>
                                         <?php endif; ?>
                                     </td>
-
                                 </tr>
-
-                                <?php endforeach; ?>
+                                <?php
+                                endforeach;
+                                ?>
                             </tbody>
                         </table>
-
                         <?php else: ?>
                         <h5 class="text-center">Tidak ada data untuk tanggal ini.</h5>
-                        <p class="text-cente">Silahkan pilih tanggal lain.</p>
+                        <p class="text-center">Silahkan pilih tanggal lain.</p>
                         <?php endif; ?>
                     </div>
                 </div>
@@ -158,5 +164,7 @@ h5 {
         </div>
     </div>
 </body>
+
+
 
 </html>

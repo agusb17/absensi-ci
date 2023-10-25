@@ -80,9 +80,7 @@ body {
         <div class="row">
             <div class="col-md-3 border-right">
                 <div class="d-flex flex-column align-items-center text-center p-3 py-5"><img class="rounded-circle mt-5"
-                        width="150px" src="<?php echo base_url(
-                            'images/' . $user->image
-                        ); ?>"><span class="font-weight-bold"><?php echo $user->username; ?></span><span
+                        width="150px" src=""><span class="font-weight-bold"><?php echo $user->username; ?></span><span
                         class="text-black-50"><?php echo $user->email; ?></span><span> </span></div>
             </div>
             <div class="col-md-5 border-right">
@@ -101,24 +99,31 @@ body {
                         </form>
 
                     </div>
-                    <div class="row mt-2">
-                        <div class="col-md-6"><label class="labels">Nama Depan</label><input type="text"
-                                class="form-control" placeholder="Nama Depan" value=""></div>
-                        <div class="col-md-6"><label class="labels">Nama Belakang</label><input type="text"
-                                class="form-control" value="" placeholder="Nama Belakang"></div>
-                    </div>
-                    <div class="row mt-3">
+                    <form action="<?php echo base_url(
+                        'admin/edit_profile'
+                    ); ?>" enctype="multipart/form-data"
+                        method="post">
+                        <div class="row mt-2">
+                            <div class="col-md-6"><label class="labels">Nama Depan</label><input type="text"
+                                    class="form-control" placeholder="Nama Depan"
+                                    value="<?php echo $user->nama_depan; ?>"></div>
+                            <div class="col-md-6"><label class="labels">Nama Belakang</label><input type="text"
+                                    class="form-control" value="<?php echo $user->nama_belakang; ?>"
+                                    placeholder="Nama Belakang"></div>
+                        </div>
+                        <div class="row mt-3">
 
-                        <div class="col-md-12"><label class="labels">Password Lama</label><input type="text"
-                                class="form-control" placeholder="Password lama" value=""></div>
-                        <div class="col-md-12"><label class="labels">Password Baru</label><input type="text"
-                                class="form-control" placeholder="Password Baru" value=""></div>
-                        <div class="col-md-12"><label class="labels">Konfirmasi Password</label><input type="text"
-                                class="form-control" placeholder="Konfirmasi password" value=""></div>
-                    </div>
+                            <div class="col-md-12"><label class="labels">Password Lama</label><input type="text"
+                                    class="form-control" placeholder="Password lama" value=""></div>
+                            <div class="col-md-12"><label class="labels">Password Baru</label><input type="text"
+                                    class="form-control" placeholder="Password Baru" value=""></div>
+                            <div class="col-md-12"><label class="labels">Konfirmasi Password</label><input type="text"
+                                    class="form-control" placeholder="Konfirmasi password" value=""></div>
+                        </div>
 
-                    <div class="mt-5 text-center"><button class="btn btn-primary profile-button" type="button">Save
-                            Profile</button></div>
+                        <div class="mt-5 text-center"><button class="btn btn-primary profile-button" type="button">Save
+                                Profile</button></div>
+                    </form>
                 </div>
             </div>
 

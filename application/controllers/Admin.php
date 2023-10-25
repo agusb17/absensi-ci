@@ -16,6 +16,20 @@ class Admin extends CI_Controller
         $this->load->library('form_validation');
     }
 
+    public function hapusKaryawan($id)
+    {
+        // Hapus semua catatan terkait dari tabel 'absensi'
+        $this->db->where('id_karyawan', $id);
+        $this->db->delete('absensi');
+
+        // Hapus pengguna dari tabel 'user'
+        $this->db->where('id', $id);
+        $this->db->delete('user');
+
+        // Setelah penghapusan berhasil, Anda dapat mengirim respons sukses atau melakukan pengalihan ke halaman lain.
+        redirect('admin/karyawan'); // Contoh pengalihan ke halaman daftar karyawan
+    }
+
     public function karyawan()
     {
         $data['absen'] = $this->admin_model->get_data('absensi')->num_rows();
@@ -697,12 +711,14 @@ class Admin extends CI_Controller
         );
         $writer->save('php://output');
     }
+
     public function rekapPerHari()
     {
-        $date = $this->input->get('date'); // Ambil date dari parameter GET
-        $data['perhari'] = $this->admin_model->getRekapHarian($date);
+        $date = $this->input->get('date');
+        $data['perhari'] = $this->admin_model->getPerHari($date);
         $this->load->view('admin/rekap_harian', $data);
     }
+
     public function rekapPerMinggu()
     {
         $start_date = $this->input->get('start_date');
@@ -731,9 +747,115 @@ class Admin extends CI_Controller
         $this->load->view('admin/rekap_bulanan', $data);
     }
 
-    public function profil()
+    public function profile()
     {
-        $this->load->view('admin/profil');
+        $data['user'] = $this->m_model
+            ->get_by_id('user', 'id', $this->session->userdata('id'))
+            ->result();
+        $this->load->view('admin/profile', $data);
+    }
+
+    public function edit_profile()
+    {
+        $password_baru = $this->input->post('password_baru');
+        $konfirmasi_password = $this->input->post('konfirmasi_password');
+        $email = $this->input->post('email');
+        $username = $this->input->post('username');
+        $nama_depan = $this->input->post('nama_depan');
+        $nama_belakang = $this->input->post('nama_belakang');
+
+        $data = [
+            'email' => $email,
+            'username' => $username,
+            'nama_depan' => $nama_depan,
+            'nama_belakang' => $nama_belakang,
+        ];
+
+        if (!empty($password_baru)) {
+            if ($password_baru === $konfirmasi_password) {
+                $data['password'] = md5($password_baru);
+                $this->session->set_flashdata(
+                    'ubah_password',
+                    'Berhasil mengubah password'
+                );
+            } else {
+                $this->session->set_flashdata(
+                    'kesalahan_password',
+                    'Password baru dan Konfirmasi password tidak sama'
+                );
+                redirect(base_url('admin/profile'));
+            }
+        }
+
+        $this->session->set_userdata($data);
+        $update_result = $this->m_model->update_data('user', $data, [
+            'id' => $this->session->userdata('id'),
+        ]);
+
+        if ($update_result) {
+            $this->session->set_flashdata(
+                'update_akun',
+                'Data berhasil diperbarui'
+            );
+            redirect(base_url('admin/profile'));
+        } else {
+            $this->session->set_flashdata(
+                'gagal_update',
+                'Gagal memperbarui data'
+            );
+            redirect(base_url('admin/profile'));
+        }
+    }
+
+    public function edit_image()
+    {
+        $image = $_FILES['image']['name'];
+        $image_temp = $_FILES['image']['tmp_name'];
+
+        // Jika ada image yang diunggah
+        if ($image) {
+            $kode = round(microtime(true) * 1000);
+            $file_name = $kode . '_' . $image;
+            $upload_path = './images/' . $file_name;
+            $this->session->set_flashdata(
+                'berhasil_ubah_foto',
+                'Foto berhasil diperbarui.'
+            );
+            if (move_uploaded_file($image_temp, $upload_path)) {
+                // Hapus image lama jika ada
+                $old_file = $this->m_model->get_karyawan_image_by_id(
+                    $this->input->post('id')
+                );
+                if ($old_file && file_exists('./images/' . $old_file)) {
+                    unlink('./images/' . $old_file);
+                }
+
+                $data = [
+                    'image' => $file_name,
+                ];
+            } else {
+                // Gagal mengunggah image baru
+                redirect(
+                    base_url('admin/edit_image/' . $this->input->post('id'))
+                );
+            }
+        } else {
+            // Jika tidak ada image yang diunggah
+            $data = [
+                'image' => 'User.png',
+            ];
+        }
+
+        // Eksekusi dengan model ubah_data
+        $eksekusi = $this->m_model->ubah_data('user', $data, [
+            'id' => $this->input->post('id'),
+        ]);
+
+        if ($eksekusi) {
+            redirect(base_url('admin/profile'));
+        } else {
+            redirect(base_url('admin/edit_image/' . $this->input->post('id')));
+        }
     }
 
     public function akun()

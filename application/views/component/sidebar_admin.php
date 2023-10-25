@@ -22,24 +22,23 @@
 }
 
 :root {
-    --white-color: #4da6ff;
+    --white-color: #00FFFF;
     --blue-color: black;
     --grey-color: black;
     --grey-color-light: black;
 }
 
 body {
-    background-color: linear-gradient(to top left, #0000ff 0%, #00ffff 100%);
-    ;
+    background-color: white;
     transition: all 0.5s ease;
 }
 
 body.dark {
-    background-color: #333;
+    background-color: #00FFFF;
 }
 
 body.dark {
-    --white-color: #333;
+    --white-color: blue;
     --blue-color: #fff;
     --grey-color: #f2f2f2;
     --grey-color-light: #aaa;
@@ -51,7 +50,7 @@ body.dark {
     top: 0;
     width: 100%;
     left: 0;
-    background-color: var(--white-color);
+    background-color: #00FFFF;
     display: flex;
     align-items: center;
     justify-content: space-between;
@@ -174,23 +173,28 @@ body.dark {
     list-style: none;
 }
 
-.navlink_icon {
-    position: relative;
-    font-size: 22px;
-    min-width: 50px;
+.nav_link {
+    font-size: 16px;
+    min-width: 10px;
     line-height: 40px;
-    display: inline-block;
-    text-align: center;
+    display: flex;
+    /* Menggunakan flex untuk mengatur ikon dan teks secara horizontal */
+    align-items: center;
+    /* Mengatur ikon dan teks ke tengah secara vertikal */
     border-radius: 6px;
+    gap: 10px;
+    /* Atur jarak antara ikon dan teks di sini */
 }
 
 .navlink_icon::before {
     content: "";
-    position: absolute;
-    height: 100%;
-    width: calc(100% + 100px);
-    left: -20px;
+    width: 20px;
+    /* Atur lebar ikon di sini */
+    height: 20px;
+    /* Atur tinggi ikon di sini */
 }
+
+
 
 .navlink_icon:hover {
     background: var(--blue-color);
@@ -209,7 +213,6 @@ body.dark {
 
 .sidebar.close .navlink {
     display: none;
-    padding: 10px 20px;
 }
 
 .nav_link:hover {
@@ -249,7 +252,7 @@ body.dark {
 }
 
 .submenu .sublink {
-    padding: 15px 15px 20px 52px;
+    padding: 15px 15px 15px 52px;
 }
 
 .bottom_content {
@@ -296,13 +299,13 @@ body.dark {
     display: none;
 }
 
-.sidebar.hoverable .collapse_sidebarr {
-    display: none;
-}
-
 #sidebarOpen {
     display: none;
 }
+
+
+
+
 
 @media screen and (max-width: 768px) {
     #sidebarOpen {
@@ -332,7 +335,7 @@ body.dark {
     <nav class="navbar">
         <div class="logo_item">
             <i class="bx bx-menu" id="sidebarOpen"></i>
-            Absensi Admin
+            Admin
         </div>
 
         <div class="search_bar">
@@ -340,7 +343,7 @@ body.dark {
         </div>
         <div class="navbar_content">
             <i class="bi bi-grid"></i>
-            <a href="<?php echo base_url('Admin/profil'); ?>">
+            <a href="<?php echo base_url('admin/profile'); ?>">
                 <img src="https://static.vecteezy.com/system/resources/thumbnails/002/318/271/small/user-profile-icon-free-vector.jpg"
                     alt="" class="profile" />
             </a>
@@ -362,28 +365,26 @@ body.dark {
 
         <ul class="md-5">
             <a href="<?php echo base_url(
-                            'Admin/rekapPerMinggu'
-                        ); ?>" class="nav_link sublink"><i class="fa-solid fa-calendar-days"> </i>rekap mingguan</a>
+                'Admin/rekapPerMinggu'
+            ); ?>" class="nav_link sublink"><i class="fa-solid fa-calendar"></i>Rekap Mingguan</a>
         </ul>
 
         <ul class="">
 
             <a href="<?php echo base_url(
-                            'Admin/rekapPerBulan'
-                        ); ?>" class="nav_link sublink"><i class="fa-regular fa-calendar-days"></i>rekap bulanan</a>
+                'Admin/rekapPerBulan'
+            ); ?>" class="nav_link sublink"><i class="fa-regular fa-calendar"></i>Rekap Bulanan</a>
         </ul>
         <ul class="">
             <a href="<?php echo base_url(
-                            'Admin/rekapPerHari'
-                        ); ?>" class="nav_link sublink"><i class="fa-sharp fa-solid fa-calendar-days"></i>rekap
-                harian</a>
+                'Admin/rekapPerHari'
+            ); ?>" class="nav_link sublink"><i class="fa-regular fa-calendar-days"></i>Rekap Harian</a>
         </ul>
 
         <ul class="">
             <a href="<?php echo base_url(
-                            'Admin/karyawan'
-                        ); ?>" class="nav_link sublink"><i
-                    class="fa-sharp fa-regular fa-calendar-days"></i>karyawan</a>
+                'Admin/karyawan'
+            ); ?>" class="nav_link sublink"><i class="fa-solid fa-user-tie"></i>Karyawan</a>
         </ul>
 
 
@@ -415,7 +416,7 @@ body.dark {
             cancelButtonText: 'Batal'
         }).then((result) => {
             if (result.isConfirmed) {
-                window.location.href = "<?php echo base_url('auth') ?>";
+                window.location.href = "<?php echo base_url('auth'); ?>";
             }
         });
     }

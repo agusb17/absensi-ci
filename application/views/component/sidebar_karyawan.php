@@ -21,15 +21,14 @@
 }
 
 :root {
-    --white-color: #4da6ff;
+    --white-color: #00FFFF;
     --blue-color: black;
     --grey-color: black;
     --grey-color-light: black;
 }
 
 body {
-    background-color: linear-gradient(to top left, #0000ff 0%, #00ffff 100%);
-    ;
+    background-color: white;
     transition: all 0.5s ease;
 }
 
@@ -173,23 +172,28 @@ body.dark {
     list-style: none;
 }
 
-.navlink_icon {
-    position: relative;
-    font-size: 22px;
-    min-width: 50px;
+.nav_link {
+    font-size: 16px;
+    min-width: 10px;
     line-height: 40px;
-    display: inline-block;
-    text-align: center;
+    display: flex;
+    /* Menggunakan flex untuk mengatur ikon dan teks secara horizontal */
+    align-items: center;
+    /* Mengatur ikon dan teks ke tengah secara vertikal */
     border-radius: 6px;
+    gap: 10px;
+    /* Atur jarak antara ikon dan teks di sini */
 }
 
 .navlink_icon::before {
     content: "";
-    position: absolute;
-    height: 100%;
-    width: calc(100% + 100px);
-    left: -20px;
+    width: 20px;
+    /* Atur lebar ikon di sini */
+    height: 20px;
+    /* Atur tinggi ikon di sini */
 }
+
+
 
 .navlink_icon:hover {
     background: var(--blue-color);
@@ -298,6 +302,10 @@ body.dark {
     display: none;
 }
 
+
+
+
+
 @media screen and (max-width: 768px) {
     #sidebarOpen {
         font-size: 25px;
@@ -345,29 +353,29 @@ body.dark {
 
     <!-- sidebar -->
     <nav class="sidebar">
-        <div class="menu_content">
-            <ul class="menu_items">
-                <div class="menu_title menu_dahsboard"></div>
-
-        </div>
 
         <ul class="">
             <a href="<?php echo base_url(
-                            'employee/history'
-                        ); ?>" class="nav_link sublink"><i class="fa-solid fa-clock-rotate-left"></i>History</a>
+                'employee/history'
+            ); ?>" class="nav_link sublink"><i class="fa-solid fa-clock-rotate-left"></i>History</a>
+        </ul>
+        <ul class="">
+            <a href="<?php echo base_url(
+                'employee/dashboard'
+            ); ?>" class="nav_link sublink"><i class="fa-regular fa-table"></i>Dashboard</a>
         </ul>
 
         <ul class="">
             <a href="<?php echo base_url(
-                            'employee/tambah_absen'
-                        ); ?>" class="nav_link sublink"><i class="fa-solid fa-calendar-check"></i>Absensi</a>
+                'employee/tambah_absen'
+            ); ?>" class="nav_link sublink"><i class="fa-solid fa-calendar-check"></i>Absensi</a>
         </ul>
 
 
         <ul class="">
             <a href="<?php echo base_url(
-                            'employee/izin'
-                        ); ?>" class="nav_link sublink"><i class="fa-regular fa-calendar-xmark"></i>izin</a>
+                'employee/izin'
+            ); ?>" class="nav_link sublink"><i class="fa-regular fa-calendar-xmark"></i>izin</a>
         </ul>
 
 
@@ -400,7 +408,7 @@ body.dark {
             cancelButtonText: 'Batal'
         }).then((result) => {
             if (result.isConfirmed) {
-                window.location.href = "<?php echo base_url('auth') ?>";
+                window.location.href = "<?php echo base_url('auth'); ?>";
             }
         });
     }
