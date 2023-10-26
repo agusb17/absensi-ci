@@ -167,7 +167,7 @@ class Employee extends CI_Controller
     public function save_absensi()
     {
         date_default_timezone_set('Asia/Jakarta');
-        $current_datetime = date('Y-m-d H:i:s');
+        $current_datetime = date('Y-m-d');
 
         $data = [
             'kegiatan' => $this->input->post('kegiatan'),

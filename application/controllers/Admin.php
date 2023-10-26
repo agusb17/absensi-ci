@@ -294,7 +294,7 @@ class Admin extends CI_Controller
 
     public function export_harian()
     {
-        $tanggal = $this->input->get('date');
+        $tanggal = $this->input->get('tanggal');
 
         $spreadsheet = new Spreadsheet();
         $sheet = $spreadsheet->getActiveSheet();
@@ -361,12 +361,11 @@ class Admin extends CI_Controller
             ->setBold(true);
 
         $sheet->setCellValue('A3', 'No');
-        $sheet->setCellValue('B3', 'Nama');
-        $sheet->setCellValue('C3', 'Kegiatan');
-        $sheet->setCellValue('D3', 'Tanggal');
-        $sheet->setCellValue('E3', 'Jam Masuk');
-        $sheet->setCellValue('F3', 'Jam Pulang');
-        $sheet->setCellValue('G3', 'Keterangan');
+        $sheet->setCellValue('B3', 'Kegiatan');
+        $sheet->setCellValue('C3', 'Tanggal');
+        $sheet->setCellValue('D3', 'Jam Masuk');
+        $sheet->setCellValue('E3', 'Jam Pulang');
+        $sheet->setCellValue('F3', 'Keterangan');
 
         $sheet->getStyle('A3')->applyFromArray($style_col);
         $sheet->getStyle('B3')->applyFromArray($style_col);
@@ -374,7 +373,6 @@ class Admin extends CI_Controller
         $sheet->getStyle('D3')->applyFromArray($style_col);
         $sheet->getStyle('E3')->applyFromArray($style_col);
         $sheet->getStyle('F3')->applyFromArray($style_col);
-        $sheet->getStyle('G3')->applyFromArray($style_col);
 
         $harian = $this->admin_model->getPerHari($tanggal);
 
@@ -382,13 +380,12 @@ class Admin extends CI_Controller
         $numrow = 4;
         foreach ($harian as $data) {
             $sheet->setCellValue('A' . $numrow, $no);
-            $sheet->setCellValue('B' . $numrow, $data->username);
-            $sheet->setCellValue('C' . $numrow, $data->kegiatan);
-            $sheet->setCellValue('D' . $numrow, $data->date);
-            $sheet->setCellValue('E' . $numrow, $data->jam_masuk);
-            $sheet->setCellValue('F' . $numrow, $data->jam_pulang);
+            $sheet->setCellValue('B' . $numrow, $data->kegiatan);
+            $sheet->setCellValue('C' . $numrow, $data->date);
+            $sheet->setCellValue('D' . $numrow, $data->jam_masuk);
+            $sheet->setCellValue('E' . $numrow, $data->jam_pulang);
             $sheet->setCellValue(
-                'G' . $numrow,
+                'F' . $numrow,
                 !$data->keterangan_izin ? 'Masuk' : $data->keterangan_izin
             );
 
@@ -398,7 +395,6 @@ class Admin extends CI_Controller
             $sheet->getStyle('D' . $numrow)->applyFromArray($style_row);
             $sheet->getStyle('E' . $numrow)->applyFromArray($style_row);
             $sheet->getStyle('F' . $numrow)->applyFromArray($style_row);
-            $sheet->getStyle('G' . $numrow)->applyFromArray($style_row);
 
             $no++;
             $numrow++;
@@ -406,11 +402,10 @@ class Admin extends CI_Controller
 
         $sheet->getColumnDimension('A')->setWidth(5);
         $sheet->getColumnDimension('B')->setWidth(25);
-        $sheet->getColumnDimension('C')->setWidth(25);
-        $sheet->getColumnDimension('D')->setWidth(20);
+        $sheet->getColumnDimension('C')->setWidth(20);
+        $sheet->getColumnDimension('D')->setWidth(30);
         $sheet->getColumnDimension('E')->setWidth(30);
         $sheet->getColumnDimension('F')->setWidth(30);
-        $sheet->getColumnDimension('G')->setWidth(30);
 
         $sheet->getDefaultRowDimension()->setRowHeight(-1);
 
@@ -431,6 +426,7 @@ class Admin extends CI_Controller
         $writer = new Xlsx($spreadsheet);
         $writer->save('php://output');
     }
+
     public function export_mingguan()
     {
         $raw_start_date = $this->input->get('start_date');
@@ -714,8 +710,8 @@ class Admin extends CI_Controller
 
     public function rekapPerHari()
     {
-        $date = $this->input->get('date');
-        $data['perhari'] = $this->admin_model->getPerHari($date);
+        $tanggal = $this->input->get('tanggal');
+        $data['perhari'] = $this->admin_model->getPerHari($tanggal);
         $this->load->view('admin/rekap_harian', $data);
     }
 

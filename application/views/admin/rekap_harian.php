@@ -101,19 +101,19 @@ h5 {
                         'admin/rekapPerHari'
                     ) ?>" method="get">
                         <div class="d-flex justify-content-between">
-                            <input type="date" class="form-control" id="date" name="date"
-                                value="<?php echo isset($_GET['date'])
-                                    ? $_GET['date']
-                                    : ''; ?>">
-                            <button type="submit" class="btn btn-success mx-2">Filter</button>
-                            <button type="submit" name="submit" class="btn btn-sm btn-success "
-                                formaction="<?php echo base_url(
-                                    'admin/export_harian'
-                                ); ?>">Export</button>
+                            <input type="date" class="form-control" id="tanggal" name="tanggal" value="<?php echo isset(
+                                $_GET['tanggal']
+                            )
+                                ? $_GET['tanggal']
+                                : ''; ?>">
+                            <button type="submit" class="btn btn-success">Filter</button>
+                            <button type="submit" name="submit" class="btn btn-sm btn-success " formaction="<?php echo base_url(
+                                'admin/export_harian'
+                            ); ?>">Export</button>
+
                         </div>
                     </form>
                     <br>
-                    <hr>
                     <br>
                     <div class="table-responsive">
                         <?php if (!empty($perhari)): ?>
@@ -121,8 +121,8 @@ h5 {
                             <thead>
                                 <tr>
                                     <th scope="col">No</th>
-                                    <th scope="col">Kegiatan</th>
                                     <th scope="col">Tanggal</th>
+                                    <th scope="col">Kegiatan</th>
                                     <th scope="col">Jam Masuk</th>
                                     <th scope="col">Jam Pulang</th>
                                     <th scope="col">Keterangan</th>
@@ -135,8 +135,8 @@ h5 {
                                     $no++; ?>
                                 <tr>
                                     <td><?= $no ?></td>
-                                    <td><?= $rekap->kegiatan ?></td>
                                     <td><?= $rekap->date ?></td>
+                                    <td><?= $rekap->kegiatan ?></td>
                                     <td><?= $rekap->jam_masuk ?></td>
                                     <td><?= $rekap->jam_pulang ?></td>
                                     <td>
@@ -148,6 +148,7 @@ h5 {
                                         <?= $rekap->keterangan_izin ?>
                                         <?php endif; ?>
                                     </td>
+
                                 </tr>
                                 <?php
                                 endforeach;
@@ -160,11 +161,10 @@ h5 {
                         <?php endif; ?>
                     </div>
                 </div>
+                </tbody>
+                </table>
             </div>
         </div>
-    </div>
 </body>
-
-
 
 </html>

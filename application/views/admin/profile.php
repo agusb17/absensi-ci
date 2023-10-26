@@ -66,6 +66,26 @@ body {
     font-size: 11px
 }
 
+.profile-image {
+    position: relative;
+    display: inline-block;
+}
+
+.profile-image img {
+    width: 150px;
+    /* Meningkatkan ukuran gambar untuk memberikan tampilan yang lebih baik */
+    height: 150px;
+    object-fit: cover;
+    border: 3px solid #6699ff;
+    border-radius: 50%;
+    margin-bottom: 15px;
+    /* Menambahkan sedikit ruang bawah gambar */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    /* Menambahkan bayangan untuk memberikan dimensi */
+    transition: transform 0.3s ease-in-out;
+    /* Efek transisi untuk animasi ketika dihover */
+}
+
 .add-experience:hover {
     background: #BA68C8;
     color: #fff;
@@ -78,7 +98,7 @@ body {
     <?php foreach ($user as $user): ?>
     <div class="container rounded bg-white mt-5 mb-5">
         <div class="row">
-            <div class="col-md-3 border-right">
+            <div class="col-md-3  profil-image border-right">
                 <div class="d-flex flex-column align-items-center text-center p-3 py-5"><img class="rounded-circle mt-5"
                         width="150px" src=""><span class="font-weight-bold"><?php echo $user->username; ?></span><span
                         class="text-black-50"><?php echo $user->email; ?></span><span> </span></div>
@@ -101,8 +121,7 @@ body {
                     </div>
                     <form action="<?php echo base_url(
                         'admin/edit_profile'
-                    ); ?>" enctype="multipart/form-data"
-                        method="post">
+                    ); ?>" enctype="multipart/form-data" method="post">
                         <div class="row mt-2">
                             <div class="col-md-6"><label class="labels">Nama Depan</label><input type="text"
                                     class="form-control" placeholder="Nama Depan"
